@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Home, Cart, ProductMenu, About } from "./src/pages";
+import { Home, Cart, RestautrantMenu, About } from "./src/pages";
 import Header from "./src/components/Header";
 
 
@@ -16,7 +16,7 @@ function App(){
               <Cart />
             } />
             <Route path="/productmenu" element={
-              <ProductMenu />
+              <RestautrantMenu />
             } />
             <Route path="/about" element={
               <About />

@@ -1,12 +1,12 @@
 import Home from "./Home";
 import Cart from './Cart';
-import ProductMenu from './ProductMenu';
+import RestautrantMenu from './RestautrantMenu';
 import About from './About'
 
 
 export {
     Home,
     Cart,
-    ProductMenu,
+    RestautrantMenu,
     About
 }
