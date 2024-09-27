@@ -3,21 +3,36 @@ import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { cartSuccess } from '../redux/reducers/cartData';
+import ResCardCount from './ResCardCount';
+import { cartItemsCountSuccess } from '../redux/reducers/cartData';
 
 const RestautrantaMenuCard = ({items}) => {
-
   const dispatch = useDispatch();
-  const {cart} = useSelector((state) => state.cart)
+  const {cart, cartItemsCount} = useSelector((state) => state.cart)
+  const [isAddBtn, setIsAddBtn] = useState(false);
+  console.log(isAddBtn)
 
   useEffect(()=>{
     localStorage.setItem("cart", JSON.stringify(cart));
+    console.log('hello')
+    console.log(cartItemsCount)
+    cartItemsCount.map((item) => {
+        (item?.id === items?.card?.info?.id) ? setIsAddBtn(true) : setIsAddBtn(false) 
+    })
+    const updatedCount = cart.map((item) => ({
+        id: item?.card?.info?.id,
+        price: item?.card?.info?.price / 100 || item?.card?.info?.defaultPrice / 100,
+        quantity: 1
+      }));
+      dispatch(cartItemsCountSuccess(updatedCount));
   },[cart])
 
   function handleAddBtn(item) {
-    // setCartData(item);
     dispatch(cartSuccess(item));
+    setIsAddBtn(true)
+    
   }
-  
+  console.log(cartItemsCount)
   return (
     <div className="flex px-3 py-9 justify-between border-t border-[.2] border-lightGray">
         <div>
@@ -46,7 +61,16 @@ const RestautrantaMenuCard = ({items}) => {
 
         </div>
         <div className="relative  z-10">
-            <button className="bg-white absolute right-[4.5rem] top-[7rem] text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items)}>ADD</button>
+            {/* { 
+                isAddBtn?.length > 0 ? isAddBtn.map((cartItem) => (
+                    (items?.card?.info?.id === cartItem?.id ) ? (<ResCardCount items={items} className="right-[5rem] top-[8rem]"/>) : (<button className="bg-white absolute right-[4.5rem] top-[7rem] text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items)}>ADD</button>)
+                )) : (<button className="bg-white absolute right-[4.5rem] top-[7rem] text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items)}>ADD</button>)
+            } */}
+            {
+                (isAddBtn) ? (<ResCardCount items={items} className={"right-[5rem] top-[8rem]"}/>) : (<button className="bg-white absolute right-[4.5rem] top-[7rem] text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items)}>ADD</button>)
+                
+            }
+            
         </div>
     </div>
   )

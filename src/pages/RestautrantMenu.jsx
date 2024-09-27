@@ -36,29 +36,29 @@ function RestautrantMenu() {
                     menuItems && menuItems.map((items, ind) => (
                         items !== null ? (
                             <div>
-                                <div className="bg-gray-500 px-3 py-5 mt-3 flex justify-between cursor-pointer" onClick={() => {
+                                <div className="bg-white px-3 py-5 flex justify-between cursor-pointer" onClick={() => {
                                     (items?.card?.card["@type"] !== "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory") ?
                                     handleOpenMenu(ind) : null}}>
                                     {items?.card?.card?.itemCards ? (
                                         items?.card?.card?.itemCards?.map((item, index)=> (
-                                            (index === 1) ? <h1>{item?.card?.info?.category}({items?.card?.card?.itemCards?.length})</h1> : null
+                                            (index === 1) ? <h1 className="font-bold">{item?.card?.info?.category}({items?.card?.card?.itemCards?.length})</h1> : null
                                          ))
                                     ) : (
-                                        <h1>{items?.card?.card?.title}</h1>
+                                        <h1 className="font-bold">{items?.card?.card?.title}</h1>
                                     )} 
                                     {items?.card?.card["@type"] !== "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" ?
                                         (<button>{isMenuOpenInd === ind ? <IoIosArrowDown /> : <IoIosArrowUp />}</button>) : null
                                     }
                                 </div>
-
+                            
                                 {(ind >= 2 && items && ind === isMenuOpenInd &&  isMenuOpenInd != null && items?.card?.card?.itemCards ) ? (
                                         items?.card?.card.itemCards?.map((items, index)=> (
                                            items && <RestautrantaMenuCard items={items}/>
                                         ))
                                 ) : (items?.card?.card?.categories?.map((category, index) => (
                                         <>
-                                            <div className="bg-gray-500 px-3 py-2 pb-5 border border-b-1 flex justify-between  cursor-pointer" onClick={() => handleCategoryMenu(category?.title)}>
-                                                <h1>{category?.title}({category?.itemCards?.length})</h1>
+                                            <div className="bg-white px-3 py-2 pb-5 border-b border-gray-400 flex justify-between  cursor-pointer" onClick={() => handleCategoryMenu(category?.title)}>
+                                                <h1 className="font-semibold">{category?.title}({category?.itemCards?.length})</h1>
                                                 <button>{categories === category?.title ? <IoIosArrowDown /> : <IoIosArrowUp />}</button>
                                             </div>
 
@@ -69,7 +69,9 @@ function RestautrantMenu() {
                                     ))
                                 )
                                 }
+                                <div className="h-3 bg-gray-200"></div>
                             </div> 
+                            
                         ) : null
                         
                     ))

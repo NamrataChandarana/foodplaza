@@ -8,21 +8,24 @@ const cartSlice = createSlice({
     },
     reducers: {
         cartSuccess: (state, action) => {
+            console.log(action.payload)
             state.loading = false;
-            state?.cart?.push(action.payload);
+            state.cart =[...state.cart, action.payload];
+            console.log(state.cart)
         },
         cartRemoveSuccess: (state, action) =>{
             state.loading = false;
             state.cart = action.payload;
-            console.log(state.cart)
         },
         cartClearSuccess: (state) =>{
             state.loading = false;
             state.cart = [];
         },
-        cartItemsCountSuccess: (state) =>{
+        cartItemsCountSuccess: (state, action) =>{
+            console.log(action.payload)
             state.loading = false;
-            state.cartItemsCount.push(action.payload);
+            state.cartItemsCount = action.payload;
+            console.log(state.cartItemsCount)
         }
     }
 })

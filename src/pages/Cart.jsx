@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-import { cartClearSuccess, cartRemoveSuccess } from "../redux/reducers/cartData";
+import { cartClearSuccess, cartRemoveSuccess, cartItemsCountSuccess } from "../redux/reducers/cartData";
 import { useEffect, useState } from "react";
+import ResCardCount from "../components/ResCardCount";
 
 function Cart() {
-
+    
     const localData = JSON.parse(localStorage.getItem("cart"));
     const dispatch = useDispatch();
     const [cartData, setCartData] = useState(localData);
@@ -18,19 +19,20 @@ function Cart() {
     function handleRemoveBtn(item){
         const updatedData = localData.filter((items) => items?.card?.info?.id !== item?.card?.info?.id);
         dispatch(cartRemoveSuccess(updatedData));
+        localStorage.setItem("cart", JSON.stringify(updatedData));
+        const data = JSON.parse(localStorage.getItem('cart'));
+        setCartData(data);
     }
 
     //Clear item
     function handleClearBtn(){
        dispatch(cartClearSuccess());
+       console.log("hello")
+       localStorage.setItem("cart", JSON.stringify(cart)); 
+       const data = JSON.parse(localStorage.getItem('cart'));
+       setCartData(data);
     }
     
-    useEffect(()=>{
-        localStorage.setItem("cart", JSON.stringify(cart));
-        const data = JSON.parse(localStorage.getItem('cart'));
-        setCartData(data);
-    },[cart])
-
     //totalPrice
     function totalPrice(cartData){
         let sum = 0;
@@ -49,6 +51,20 @@ function Cart() {
     useEffect(()=>{
         totalPrice(cartData)
     },[cartData])
+
+
+    // useEffect(() =>{
+    //     if (cart) {
+    //       const updatedCount = cart.map((item) => ({
+    //         id: item?.card?.info?.id,
+    //         price: item?.card?.info?.price / 100 || item?.card?.info?.defaultPrice / 100,
+    //         quantity: 1
+    //       }));
+    
+    //       setCount(updatedCount);
+    //       dispatch(cartItemsCountSuccess(updatedCount));
+    //     }
+    // },[cart])
 
     return (
         <>
@@ -83,6 +99,7 @@ function Cart() {
                         <div className="relative w-[156px] h-[144px] overflow-hidden z-10 rounded-md">
                             <img className="z-10 absolute top-0 left-0 w-full h-full object-cover" loading="lazy" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${items?.card?.info?.imageId}`} alt="" />
                         </div> 
+                        <ResCardCount items={items} className={"right-[5rem] top-[8rem]"} />
                         <div className="relative  z-10">
                             <button className="bg-white text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleRemoveBtn(items)}>Remove</button>
                         </div> 
