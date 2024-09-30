@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-import { cartClearSuccess, cartRemoveSuccess, cartItemsCountSuccess } from "../redux/reducers/cartData";
+import { cartClearSuccess, cartRemoveSuccess, cartItemsCountSuccess, cartItemsTotalSuccess } from "../redux/reducers/cartData";
 import { useEffect, useState } from "react";
 import ResCardCount from "../components/ResCardCount";
 
@@ -10,11 +10,12 @@ function Cart() {
     const localData = JSON.parse(localStorage.getItem("cart"));
     const dispatch = useDispatch();
     const [cartData, setCartData] = useState(localData);
-    const {cart} = useSelector((state) => state.cart);
-    const [cartTotal, setCartTotal ] = useState(0);
-    const [count , setCount] = useState([]);
+    const {cart, cartSum, cartItemsCount } = useSelector((state) => state.cart);
+    const data = useSelector((state) => state.cart);
+    const [cartTotal , setCartTotal] = useState(0);
+    const cartQunt = JSON.parse(localStorage.getItem('cartQuantity'));
+    
    
-
     //Remove item
     function handleRemoveBtn(item){
         const updatedData = localData.filter((items) => items?.card?.info?.id !== item?.card?.info?.id);
@@ -22,49 +23,54 @@ function Cart() {
         localStorage.setItem("cart", JSON.stringify(updatedData));
         const data = JSON.parse(localStorage.getItem('cart'));
         setCartData(data);
+        cartQunt.length > 1 ? (
+        cartQunt?.map((cartItem) => {
+            console.log(cartItem)
+            if(item?.card?.info?.id === cartItem?.id){
+                console.log("hello")
+                console.log(cartItem)
+                const itemsSum = Math.round(cartItem?.price * cartItem?.quantity)
+                {console.log(itemsSum)}
+                setCartTotal((prevSum) => {
+                    console.log(prevSum)
+                    const newTotal = prevSum - itemsSum
+                    console.log(newTotal)
+                    dispatch(cartItemsTotalSuccess(newTotal))
+                    // return newTotal;
+                }) 
+            }  
+        })
+        ) : dispatch(cartItemsTotalSuccess(0))
+        const updatedQun = cartQunt.filter((items) => items?.id !== item?.card?.info?.id);
+        localStorage.setItem('cartQuantity', JSON.stringify(updatedQun))
+        dispatch(cartItemsCountSuccess(updatedData))     
     }
 
     //Clear item
     function handleClearBtn(){
        dispatch(cartClearSuccess());
-       console.log("hello")
-       localStorage.setItem("cart", JSON.stringify(cart)); 
+       localStorage.setItem("cart", JSON.stringify([])); 
        const data = JSON.parse(localStorage.getItem('cart'));
        setCartData(data);
+       localStorage.setItem('cartQuantity', JSON.stringify([]))
+       dispatch(cartItemsCountSuccess(cart))
+       setCartTotal(0);
+       dispatch(cartItemsTotalSuccess(cartTotal))
     }
     
-    //totalPrice
-    function totalPrice(cartData){
-        let sum = 0;
-        cartData?.forEach((item) => {
-            if (item?.card?.info?.finalPrice) {
-                sum += item.card.info.finalPrice / 100;
-            } else if (item?.card?.info?.price) {
-                sum += item.card.info.price / 100;
-            } else {
-                sum += item.card.info.defaultPrice / 100;
-            }
-        });
-        setCartTotal(sum);
+    function totalPrice(cartQunt){
+        console.log(cartQunt)
+        let sum = 0
+        cartQunt?.map((item) => (
+            sum += Math.round((item?.price) * item?.quantity)
+        ))
+        setCartTotal(sum);  
+        dispatch(cartItemsTotalSuccess(sum)) 
     }
 
     useEffect(()=>{
-        totalPrice(cartData)
-    },[cartData])
-
-
-    // useEffect(() =>{
-    //     if (cart) {
-    //       const updatedCount = cart.map((item) => ({
-    //         id: item?.card?.info?.id,
-    //         price: item?.card?.info?.price / 100 || item?.card?.info?.defaultPrice / 100,
-    //         quantity: 1
-    //       }));
-    
-    //       setCount(updatedCount);
-    //       dispatch(cartItemsCountSuccess(updatedCount));
-    //     }
-    // },[cart])
+        totalPrice(cartQunt)
+    },[cart, cartQunt])
 
     return (
         <>
@@ -108,7 +114,7 @@ function Cart() {
             ))}
             <div>
                 <h1>Total Prize</h1>
-                <h1 className="flex"><MdOutlineCurrencyRupee className="mt-1"/>{cartTotal}</h1>
+                <h1 className="flex"><MdOutlineCurrencyRupee className="mt-1"/>{cartSum}</h1>
             </div>
         </> 
     )

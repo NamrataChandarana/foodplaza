@@ -7,32 +7,43 @@ import ResCardCount from './ResCardCount';
 import { cartItemsCountSuccess } from '../redux/reducers/cartData';
 
 const RestautrantaMenuCard = ({items}) => {
+  
   const dispatch = useDispatch();
   const {cart, cartItemsCount} = useSelector((state) => state.cart)
   const [isAddBtn, setIsAddBtn] = useState(false);
-  console.log(isAddBtn)
+  const cartQuan = JSON.parse(localStorage.getItem("cartQuantity"));
 
   useEffect(()=>{
-    localStorage.setItem("cart", JSON.stringify(cart));
-    console.log('hello')
-    console.log(cartItemsCount)
-    cartItemsCount.map((item) => {
-        (item?.id === items?.card?.info?.id) ? setIsAddBtn(true) : setIsAddBtn(false) 
-    })
-    const updatedCount = cart.map((item) => ({
-        id: item?.card?.info?.id,
-        price: item?.card?.info?.price / 100 || item?.card?.info?.defaultPrice / 100,
-        quantity: 1
-      }));
-      dispatch(cartItemsCountSuccess(updatedCount));
+    if (cart && cart?.length > 0) 
+        localStorage.setItem("cart", JSON.stringify(cart));
+    
+    const updatedCount = cart.map((item) => {
+        const matchingCartItem = cartQuan?.find((cartItem) => cartItem?.id === item?.card?.info?.id);
+        return {
+            id: item?.card?.info?.id,
+            price: (item?.card?.info?.finalPrice) ?  (item?.card?.info?.finalPrice / 100) : (item?.card?.info?.price / 100) || (item?.card?.info?.defaultPrice / 100),
+            quantity: matchingCartItem?.quantity || 1
+        }
+    }); 
+    dispatch(cartItemsCountSuccess(updatedCount));
+    
+
+    if (cart && cart?.length > 0) {
+        localStorage.setItem("cartQuantity", JSON.stringify(updatedCount));
+    }
+
+    
+    cartQuan?.length > 0 && cartQuan?.map((item) => {
+        (item?.id === items?.card?.info?.id) ? setIsAddBtn(true) : null 
+    });
+
   },[cart])
 
   function handleAddBtn(item) {
     dispatch(cartSuccess(item));
-    setIsAddBtn(true)
-    
+    setIsAddBtn(true);;
   }
-  console.log(cartItemsCount)
+
   return (
     <div className="flex px-3 py-9 justify-between border-t border-[.2] border-lightGray">
         <div>
@@ -67,7 +78,7 @@ const RestautrantaMenuCard = ({items}) => {
                 )) : (<button className="bg-white absolute right-[4.5rem] top-[7rem] text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items)}>ADD</button>)
             } */}
             {
-                (isAddBtn) ? (<ResCardCount items={items} className={"right-[5rem] top-[8rem]"}/>) : (<button className="bg-white absolute right-[4.5rem] top-[7rem] text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items)}>ADD</button>)
+                (isAddBtn) ? (<ResCardCount items={items} className={"right-[5rem] top-[8rem]"} />) : (<button className="bg-white absolute right-[4.5rem] top-[7rem] text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items)}>ADD</button>)
                 
             }
             

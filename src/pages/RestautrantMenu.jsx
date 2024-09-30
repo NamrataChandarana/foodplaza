@@ -17,20 +17,18 @@ function RestautrantMenu() {
     const menuItems = menuList && menuList?.map((item) => (
         item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" || item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" ? ( item) : null
     ))
-    console.log(menuItems)
 
     function handleOpenMenu(index) {
         (index === isMenuOpenInd) ? setIsMenuOpenInd(null) : setIsMenuOpenInd(index);
-        console.log(isMenuOpenInd)
     }
     function handleCategoryMenu(index) {
         (index === categories) ? setCategories(null) : setCategories(index);
-        console.log()
     }
 
     return (
         <>
             <div className="md:mx-60 mx-20">
+           
                 <h1>MENU</h1>
                 {
                     menuItems && menuItems.map((items, ind) => (
