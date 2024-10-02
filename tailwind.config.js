@@ -18,7 +18,8 @@ module.exports = {
         lightGray: '#7F8284',
         darkGray: '#161A1F',
         darkGray: '#3D4046',
-        darkhead: "#414448"
+        darkhead: "#414448",
+        cartBgColor: "#E9ECEE"
       }
     },
   },

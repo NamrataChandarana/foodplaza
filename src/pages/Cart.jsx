@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { cartClearSuccess, cartRemoveSuccess, cartItemsCountSuccess, cartItemsTotalSuccess } from "../redux/reducers/cartData";
 import { useEffect, useState } from "react";
 import ResCardCount from "../components/ResCardCount";
+import { MdDelete } from "react-icons/md";
 
 function Cart() {
     
@@ -68,55 +69,118 @@ function Cart() {
         dispatch(cartItemsTotalSuccess(sum)) 
     }
 
+    function itemTotal(item){
+        cartQunt?.map((cartItem) => {
+           if(cartItem?.id === item?.card?.info?.id){
+             return cartItem?.quantity * cartItem?.price
+           }   
+        })
+    }
+    
+
     useEffect(()=>{
-        totalPrice(cartQunt)
+        totalPrice(cartQunt);
     },[cart, cartQunt])
 
     return (
-        <>
-            <div className="relative  z-10">
-                <button className="bg-white text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={handleClearBtn}>Clear</button>
-            </div> 
-            {cartData && cartData.map((items, index) => (
-                <> 
-                    <div className="flex px-3 py-9 justify-between border-t border-[.2] border-lightGray">
-                        <div>
-                            <h1 className="font-bold text-darkhead text-lg">{items?.card?.info?.name}</h1>
-                            {
-                                items?.card?.info?.finalPrice ? (
-                                    <div className="flex gap-1">
-                                        <h1 className="line-through flex text-lightGray"><MdOutlineCurrencyRupee className="mt-1 line-through text-lightGray"/>{(items?.card?.info?.defaultPrice) / 100}</h1>
-                                        <h1 className="flex"><MdOutlineCurrencyRupee className="mt-1"/>{(items?.card?.info?.finalPrice) / 100}</h1>
-                                    </div>
-                                 ) : (items?.card?.info?.price ? (<h1 className="flex text-darkhead font-bold"><MdOutlineCurrencyRupee className="font-bold mt-1"/>{(items?.card?.info?.price) / 100}</h1>) : (<h1 className="flex text-darkhead font-bold"><MdOutlineCurrencyRupee className="font-bold mt-1"/>{(items?.card?.info?.defaultPrice) / 100}</h1>))
-                            }
-                        {
-                            items?.card?.info?.ratings?.aggregatedRating?.rating ? (
-                                <div className="flex" >
-                                    <FaStar className="text-green-600 mt-1 mr-1 text-sm" />
-                                    <span className="font-bold text-sm mt-[.10rem] text-green-600">{items?.card?.info?.ratings?.aggregatedRating?.rating}</span>
-                                    <span className="font-bold text-sm mt-[.10rem]">({items?.card?.info?.ratings?.aggregatedRating?.ratingCountV2})</span>
-                                </div>
-                            ) : null
-                        }
-
-                        <p className="w-[37rem] text-md text-lightGray">{items.card?.info?.description}</p>
-                        </div>
-                        <div className="relative w-[156px] h-[144px] overflow-hidden z-10 rounded-md">
-                            <img className="z-10 absolute top-0 left-0 w-full h-full object-cover" loading="lazy" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${items?.card?.info?.imageId}`} alt="" />
-                        </div> 
-                        <ResCardCount items={items} className={"right-[5rem] top-[8rem]"} />
-                        <div className="relative  z-10">
-                            <button className="bg-white text-green-600 px-9 py-2 font-bold rounded-md border border-black" onClick={() => handleRemoveBtn(items)}>Remove</button>
-                        </div> 
+        <div className="grid grid-cols-3 px-10 bg-cartBgColor min-h-[86.8vh]">
+            <div className="py-5 col-span-2">
+                <div className="relative z-10 flex justify-between">
+                    <div>
+                        <h1 className="pt-2 font-bold text-xl font-Montserrat text-darkhead">Your Cart</h1>
+                        <h1 className="pt-1 font-semibold text-xs pl-1 font-Montserrat text-darkhead"><span className="font-bold">3 items</span> in your cart</h1>
                     </div>
-                </>
-            ))}
-            <div>
-                <h1>Total Prize</h1>
-                <h1 className="flex"><MdOutlineCurrencyRupee className="mt-1"/>{cartSum}</h1>
+                    <div className="pt-4">
+                        <button className="bg-white py-2  text-darkGray px-10 font-semibold " onClick={handleClearBtn}>Clear</button>
+                    </div>
+                </div> 
+                
+                {/* CartCard */}
+                <div className="flex-col bg-white mt-5">
+                    <div className="flex gap-[32rem]  pt-4">
+                        <h3 className="ml-5 font-bold ">Items</h3>
+                        <div className="flex gap-16 mx-30 font-bold">
+                            <h3>Price</h3>
+                            <h3>Quantity</h3>
+                        </div>
+                    </div>
+                    {cartData && cartData.map((items, index) => (
+                        <div>
+                            <div className="flex gap-6 mt-5 pb-5 ">
+                                <div className="relative w-[140px] h-[144px] overflow-hidden z-10 rounded-md ml-5 ">
+                                    <img className="z-10 absolute top-0 left-0 w-full h-full object-cover" loading="lazy" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${items?.card?.info?.imageId}`} alt="" />
+                                </div> 
+                                <div className="w-[23rem]"> 
+                                    <h1 className="font-bold text-darkhead text-md md:text-md">{items?.card?.info?.name}</h1>
+                                    {
+                                        items?.card?.info?.finalPrice ? (
+                                            <div className="flex gap-1">
+                                                <h1 className="line-through flex text-lightGray text-sm md:text-md"><MdOutlineCurrencyRupee className="mt-1 line-through text-lightGray"/>{(items?.card?.info?.defaultPrice) / 100}</h1>
+                                                <h1 className="flex"><MdOutlineCurrencyRupee className="mt-1"/>{(items?.card?.info?.finalPrice) / 100}</h1>
+                                            </div>
+                                         ) : (items?.card?.info?.price ? (<h1 className="flex text-darkhead font-bold text-sm"><MdOutlineCurrencyRupee className="font-bold mt-1"/>{(items?.card?.info?.price) / 100}</h1>) : (<h1 className="flex text-darkhead font-bold"><MdOutlineCurrencyRupee className="font-bold mt-1"/>{(items?.card?.info?.defaultPrice) / 100}</h1>))
+                                    }
+                                    {
+                                        items?.card?.info?.ratings?.aggregatedRating?.rating ? (
+                                            <div className="flex" >
+                                                <FaStar className="text-green-600 mt-1 mr-1 text-sm" />
+                                                <span className="font-bold text-sm mt-[.10rem] text-green-600">{items?.card?.info?.ratings?.aggregatedRating?.rating}</span>
+                                                <span className="font-bold text-sm mt-[.10rem]">({items?.card?.info?.ratings?.aggregatedRating?.ratingCountV2})</span>
+                                            </div>
+                                        ) : null
+                                    }
+                                    <p className="w-[20rem] text-sm text-lightGray ">{items.card?.info?.description}</p>
+                                </div>
+                                <div className="flex gap-12 ">
+                                    <h1 className="flex text-sm mt-12 "><MdOutlineCurrencyRupee className="mt-1 "/>
+                                        {cartQunt?.map((cartItem) => {
+                                            if(cartItem?.id === items?.card?.info?.id){
+                                              return cartItem?.quantity * cartItem?.price
+                                            } 
+                                        })}
+                                    </h1>
+                                    
+                                    <ResCardCount items={items} className={" my-9 h-10"} />
+                                    
+                                    <div className="relative mt-9 z-10">
+                                        <button className="bg-white text-green-600 pr-5 py-2 font-bold text-2xl" onClick={() => handleRemoveBtn(items)}><MdDelete /></button>
+                                    </div>
+                                </div>
+                                 
+                            </div>
+                            <div className="mx-8 rounded-md border-b border-gray-300"></div>  
+                        </div>
+                    ))}
+                </div>
             </div>
-        </> 
+            
+            {/* CartTotal */}
+            <div className="bg-white my-9 mx-5 w-full h-80 col-span-1">
+                <div className="px-5 py-3">
+                    <h1 className="font-bold text-lg">Cart Total</h1>
+                    <div className="flex justify-between">
+                        <div className="py-5">
+                            <h3 className="py-3 border-b border-gray-300">Items Total</h3>
+                            <h3 className="py-3 border-b border-gray-300">Delivery Fee</h3>
+                            <h3 className="py-3 border-b border-gray-300">GST and Restaurant Charges</h3>
+                        </div>
+                        <div className="py-5">
+                            <h3 className="flex py-3"><MdOutlineCurrencyRupee className="mt-1 "/>{cartSum}</h3>
+                            <h3 className="flex py-3"><MdOutlineCurrencyRupee className="mt-1 "/>42</h3>
+                            <h3 className="flex py-3"><MdOutlineCurrencyRupee className="mt-1 "/>39</h3>
+                            <div>
+                                <h1 className="flex py-3 border-t border-gray-300 font-bold"><MdOutlineCurrencyRupee className="mt-1 "/>300</h1>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    
+                   
+                </div>
+                
+            </div>
+        </div> 
     )
 }
 export default Cart

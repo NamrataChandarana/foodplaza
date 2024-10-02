@@ -32,20 +32,22 @@ const ResCardCount = ({items, className}) => {
   }
   return (
 
-    <div className="relative flex z-0">
-        <button className='absolute left-[-9.5rem] top-[8.5rem] z-20 text-green-600 font-bold' onClick={decrementBtn}>-</button>
-        {
-          cartQun?.length > 0 && cartQun?.map((item) => (
-            (item?.id === items?.card?.info?.id) ? (
-              <button className={`bg-white absolute text-green-600 px-9 py-2 font-bold rounded-md border border-black ${className}`}>
-                {item?.quantity}
-              </button>
-            ):null
-          ))
-        }
-        {/* <button className={` bg-white absolute text-green-600 px-9 py-2 font-bold rounded-md border border-black ${className}`}>{cartItemsCount}</button> */}
-        <button onClick={incrementBtn} className='absolute right-[5.5rem] top-[8.5rem] z-20 text-green-600 font-bold'>+</button>
-    </div>    
+    // <div className="relative flex z-0">
+      <div className={`${className} border border-lightBlue rounded-md py-2 px-4`}>
+        <button className=' z-20 text-green-600 font-bold ' onClick={decrementBtn}>-</button>
+          {
+            cartQun?.length > 0 && cartQun?.map((item) => (
+              (item?.id === items?.card?.info?.id) ? (
+                <button className='bg-white text-green-600 px-3 font-bold '>
+                  {item?.quantity}
+                </button>
+              ):null
+            ))
+          }
+        <button onClick={incrementBtn} className=' z-20 text-green-600 font-bold '>+</button>
+      </div>
+        
+    // </div>    
 
   )
 }
