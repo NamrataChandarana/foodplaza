@@ -5,7 +5,8 @@ const cartSlice = createSlice({
     initialState : {
         cart: [],
         cartItemsCount: [],
-        cartSum: 0
+        cartSum: 0,
+        cartLength: 0
     },
     reducers: {
         cartSuccess: (state, action) => {
@@ -28,10 +29,14 @@ const cartSlice = createSlice({
             console.log(action.payload)
             state.loading = false;
             state.cartSum = action.payload
+        },
+        cartLengthSuccess: (state, action) =>{
+            state.loading = false;
+            state.cartLength = action.payload
         }
     }
 })
 
 
-export const {cartSuccess, cartRemoveSuccess, cartClearSuccess, cartItemsCountSuccess, cartItemsTotalSuccess} = cartSlice.actions;
+export const {cartSuccess, cartRemoveSuccess, cartClearSuccess, cartItemsCountSuccess, cartItemsTotalSuccess, cartLengthSuccess} = cartSlice.actions;
 export default cartSlice.reducer

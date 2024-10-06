@@ -1,15 +1,17 @@
 import { FaStar } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import HomeSkeleton from "./skeleton/HomeSkeleton";
 
 const RestautrantsCard = ({filteredData}) => {
-    const {lat, lon} = useSelector((state) => state.location);
+  const {lat, lon} = useSelector((state) => state.location);
+  console.log(filteredData)
   return (
     <div className="grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2">
-        {filteredData && filteredData.length > 0 ?(
-            filteredData.map((restaurant) => (
+        {filteredData && filteredData.length > 0 ? (
+            filteredData?.map((restaurant) => (
                 <Link to={`/productmenu?page-type="REGULAR_MENU&complete-menu=true&lat=${lat}&lng=${lon}&restaurantId=${restaurant?.info?.id}&catalog_qa="undefined"&submitAction="ENTER"`}>
-                    <div className=" bg-white m-3 rounded-md hover:scale-90 hover:transition-all">
+                    <div className=" bg-white my-3 mr-8 rounded-md hover:scale-90 hover:transition-all">
                         <img src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant?.info?.cloudinaryImageId}`} className="h-[10em] w-full rounded-2xl object-cover" />
                         <div className="py-2">
                             <h1 className="font-bold text-xl text-darkGray">{restaurant?.info?.name?.length > 20 ? `${restaurant?.info?.name?.slice(0,18)}...` : restaurant?.info?.name }</h1>
@@ -25,7 +27,8 @@ const RestautrantsCard = ({filteredData}) => {
                 </Link>
             ))
         ): (
-            <div>data not available</div>
+            <HomeSkeleton length={5} />
+            
         )}
     </div>
   )

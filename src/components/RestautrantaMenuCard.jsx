@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
-import { cartSuccess } from '../redux/reducers/cartData';
+import { cartLengthSuccess, cartSuccess } from '../redux/reducers/cartData';
 import ResCardCount from './ResCardCount';
 import { cartItemsCountSuccess } from '../redux/reducers/cartData';
 
@@ -39,6 +39,8 @@ const RestautrantaMenuCard = ({items}) => {
   function handleAddBtn(item) {
     dispatch(cartSuccess(item));
     setIsAddBtn(true);
+    const length =cartQuan?.length + 1;
+    dispatch(cartLengthSuccess(length))
   }
 
   return (
