@@ -15,7 +15,7 @@ const Location = ({setIsOpen}) => {
     const lat = location.lat;
     const locationName = location.name;
     dispatch(locationSuccess({locationName, lon, lat}));
-    setIsOpen(false)
+    // setIsOpen(false)
   }
   const handleClose = () =>{
     setIsOpen(false);
@@ -29,17 +29,17 @@ const Location = ({setIsOpen}) => {
 
   return (
   <>
-      <div className='h-[100vh] w-[30rem] bg-white shadow-2xl fixed left-0 top-0'>
-          <div className='px-10 py-5 text-lightBlue text-2xl'onClick={handleClose}>
+      <div className='h-[100vh] w-[20rem] md:w-[30rem] bg-white shadow-2xl fixed left-0 top-0 z-10'>
+          <div className='px-10 md:py-5 py-3 text-lightBlue text-lg md:text-2xl'onClick={handleClose}>
               <IoMdClose />
           </div>
           <div>
-              <input type="text" placeholder='Search for area..' className='shadow-md w-80 px-2 mx-10 my-5 py-4 outline-none border border-lightgray' onChange={handleKeyDown}/>
+              <input type="text" placeholder='Search for area..' className='shadow-md w-60 md:w-80 px-2 mx-10 my-2 md:my-5 py-4 outline-none border border-lightgray' onChange={handleKeyDown}/>
           </div>
           {
             locations && locations.map((location)=> (
                 location?.name && location.name.trim() !== "Null"  ? (
-                <div className='flex border-b border-dashed border-gray-400 border-spacing-9 mx-10 px-5 py-5'>
+                <div className='flex border-b border-dashed border-gray-400 border-spacing-9 mx-10 md:px-5  py-5'>
                   <div className='text-xl pb-5 pt-[.15rem] px-2 text-gray-600'>
                     <CiLocationOn />
                   </div>
