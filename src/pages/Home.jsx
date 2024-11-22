@@ -7,25 +7,55 @@ import { removeFilter, filterClicked } from "../utils/functions";
 import RestautrantsCard from "../components/RestautrantsCard";
 import useRestaurantData from "../utils/useRestaurantData";
 import FilterSkeleton from "../components/skeleton/FilterSkeleton";
-import image from '../../public/location_unserviceable.avif'
+import image from '../../public/location_unserviceable.avif';
+import TopRated from "../components/TopRated";
+import HomeSkeleton from "../components/skeleton/HomeSkeleton";
+// import { Swiper, SwiperSlide } from 'swiper/react';
 
-function Home() {
+// Import Swiper styles
+// import 'swiper/css'; 
+// import 'swiper/css/pagination';
+// import 'swiper/css/navigation';
+
+// import './styles.css';
+
+const Home = () =>{
     const {location} = useSelector(state => state.location);
     const [locationService, setLocationService] = useState(true);
     const [isClickedIndex, setIsClickedIndex] = useState(null);
     const [filteredData, setFilteredData] = useState(null);
     const restaurantsData = useRestaurantData(setLocationService, setFilteredData);
+    const [swiperRef, setSwiperRef] = useState(null);
+
+    const TopRatedComp = TopRated(RestautrantsCard);
 
     return (
         <>
             {
                 locationService ? (
-                    <div>
-
-                        
-
-                        <div className="md:mx-40 mx-20">
-                            <h1 className="font-bold text-lg my-5">Restaurants with online food delivery in {location}</h1>
+                    <div className="md:mx-40 mx-20">
+                        <div>
+                            <h1 className="font-bold  text-sm md:text-lg  my-5">Top restaurant chains in Bangalore</h1>
+                            {/* <Swiper
+                                onSwiper={setSwiperRef}
+                                slidesPerView={3}
+                                centeredSlides={true}
+                                spaceBetween={30}
+                                // pagination={{
+                                //   type: 'fraction',
+                                // }}
+                                // navigation={true}
+                                // modules={[Pagination, Navigation]}
+                                className="mySwiper"
+                            >                     
+                                <SwiperSlide>Slide 1</SwiperSlide>
+                                <SwiperSlide>Slide 2</SwiperSlide>
+                                <SwiperSlide>Slide 3</SwiperSlide>
+                                <SwiperSlide>Slide 4</SwiperSlide>
+                            </Swiper> */}
+                        </div>
+                        <div>
+                            <h1 className="font-bold text-sm md:text-lg  my-5">Restaurants with online food delivery in {location}</h1>
                             <div>
                                 <div className="flex gap-2">
                                     {cardFilters.length > 0 ? (
@@ -44,7 +74,18 @@ function Home() {
                                     }
                                </div>
                             </div>
-                            <RestautrantsCard filteredData={filteredData}/>
+                            <div className=" grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-6 ">
+                                {filteredData ? (
+                                    filteredData.length > 0 ? (
+                                        filteredData.map((restaurant) => (  
+                                            (restaurant.info.avgRating >= 4.5) ? <TopRatedComp restaurant={restaurant} /> : <RestautrantsCard restaurant={restaurant} />
+                                        ))   
+                                    ): (
+                                        <h1 className="font-bold text-center flex justify-center">Restautrant not available!</h1>
+                                    )):(
+                                    <HomeSkeleton length={5} />  
+                                )}
+                            </div>
                         </div>
                     </div>
                 ) : (
