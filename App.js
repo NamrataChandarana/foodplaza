@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Home, Cart, RestautrantMenu, About } from "./src/pages";
+import { Home, Cart, RestautrantMenu, About} from "./src/pages";
 import Header from "./src/components/Header";
 
 
@@ -21,9 +21,6 @@ function App(){
             <Route path="/about" element={
               <About />
             } />
-            {/* <Route path="*" element={
-              <Pagenotfound />
-            } /> */}
 
           </Routes>
         </Router>
