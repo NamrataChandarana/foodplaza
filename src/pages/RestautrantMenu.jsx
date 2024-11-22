@@ -10,7 +10,7 @@ import ResDetailsSkeleton from "../components/skeleton/ResDetailsSkeleton";
 import MenuItemsSkeleton from "../components/skeleton/MenuItemsSkeleton";
 
 
-function RestautrantMenu() {
+const RestautrantMenu = () => {
     const [searchParams] = useSearchParams();
     const lat = searchParams.get("lat");
     const lon = searchParams.get("lon");
@@ -30,24 +30,23 @@ function RestautrantMenu() {
         item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.Restaurant" ? (item) : null
     ))
 
-    console.log(resData)
     function handleOpenMenu(index) {
         (index === isMenuOpenInd) ? setIsMenuOpenInd(null) : setIsMenuOpenInd(index);
     }
-    function handleCategoryMenu(index) {
+     function handleCategoryMenu(index) {
         (index === categories) ? setCategories(null) : setCategories(index);
     }
 
     return (
         <>
            
-            <div className="md:mx-72 mx-20">
+            <div className="lg:mx-72 md:mx-32 mx-10">
                  {/* res details */}
                 <div>
                     {resName && resName?.length > 0  ? (
                         resName?.map((item) => (
                             item !== null ? (
-                                <h1 className="font-bold text-2xl text-darkGray">{item?.card?.card?.text}</h1>
+                                <h1 className="font-bold mt-7 text-lg md:text-2xl text-darkGray">{item?.card?.card?.text}</h1>
                             ): (
                                null
                         )))
@@ -60,11 +59,11 @@ function RestautrantMenu() {
                     { resData && resData?.length > 0 ? (
                             resData?.map((item) => (
                                 (item !== null) ? (
-                                    <div className="bg-white py-5 border border-gray-300 rounded-xl px-5 my-8 shadow-xl">
-                                        <div className="flex font-bold text-md my-2">
-                                            <FaStar className="bg-green-700 text-white rounded-xl py-1 mt-1 mr-1 text-lg" />
-                                            <h1> {item?.card?.card?.info?.avgRating}({item?.card?.card?.info?.totalRatingsString}) </h1>
-                                            <div className="text-lightGray text-xs mx-2 my-1">&#9679;</div>
+                                    <div className="bg-white py-5 border border-gray-300 rounded-xl px-5 md:mt-5 mt-3 mb-9 shadow-xl">
+                                        <div className="flex-col md:flex-row lg:flex-row  md:gap-1 font-bold text-md my-2">
+                                            <h1 className="flex"><FaStar className="bg-green-700 text-white rounded-xl py-1 mt-1 mr-1 text-lg" /> {item?.card?.card?.info?.avgRating} </h1>
+                                            <h1>({item?.card?.card?.info?.totalRatingsString})</h1>
+                                            <div className="text-lightGray text-xs mx-2 my-1 hidden">&#9679;</div>
                                             <h1>{item?.card?.card?.info?.costForTwoMessage}</h1>
                                         </div>
                                         <h3 className="font-bold text-sm text-orange">
