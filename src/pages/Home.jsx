@@ -10,50 +10,26 @@ import FilterSkeleton from "../components/skeleton/FilterSkeleton";
 import image from '../../public/location_unserviceable.avif';
 import TopRated from "../components/TopRated";
 import HomeSkeleton from "../components/skeleton/HomeSkeleton";
-// import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-// import 'swiper/css'; 
-// import 'swiper/css/pagination';
-// import 'swiper/css/navigation';
-
-// import './styles.css';
+import HeroSection from "../components/HeroSection";
 
 const Home = () =>{
     const {location} = useSelector(state => state.location);
     const [locationService, setLocationService] = useState(true);
     const [isClickedIndex, setIsClickedIndex] = useState(null);
     const [filteredData, setFilteredData] = useState(null);
+    const [topRestaurant, setTopRestaurant] = useState(null);
     const restaurantsData = useRestaurantData(setLocationService, setFilteredData);
+    // const topRes = useTopRestaurant(setTopRestaurant) 
     const [swiperRef, setSwiperRef] = useState(null);
 
     const TopRatedComp = TopRated(RestautrantsCard);
 
-    return (
+    return (    
         <>
+            <HeroSection/>
             {
                 locationService ? (
                     <div className="md:mx-40 mx-20">
-                        <div>
-                            <h1 className="font-bold  text-sm md:text-lg  my-5">Top restaurant chains in Bangalore</h1>
-                            {/* <Swiper
-                                onSwiper={setSwiperRef}
-                                slidesPerView={3}
-                                centeredSlides={true}
-                                spaceBetween={30}
-                                // pagination={{
-                                //   type: 'fraction',
-                                // }}
-                                // navigation={true}
-                                // modules={[Pagination, Navigation]}
-                                className="mySwiper"
-                            >                     
-                                <SwiperSlide>Slide 1</SwiperSlide>
-                                <SwiperSlide>Slide 2</SwiperSlide>
-                                <SwiperSlide>Slide 3</SwiperSlide>
-                                <SwiperSlide>Slide 4</SwiperSlide>
-                            </Swiper> */}
-                        </div>
                         <div>
                             <h1 className="font-bold text-sm md:text-lg  my-5">Restaurants with online food delivery in {location}</h1>
                             <div>
