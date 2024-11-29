@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import ResCardCount from "../components/ResCardCount";
 import { MdDelete } from "react-icons/md";
 import emptyCart from "../../public/Empty_cart.avif";
-import { Link } from "react-router-dom";
-import { handleRemoveBtn, handleClearBtn, totalPrice } from "../utils/functions";
+import { Link, useNavigate} from "react-router-dom";
+import { handleRemoveBtn, handleClearBtn, totalPrice, handleCheckout } from "../utils/functions";
 import { IoMdTime } from "react-icons/io";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 
@@ -18,6 +18,7 @@ const Cart = () => {
     const [cartTotal , setCartTotal] = useState(0);
     const cartQunt = JSON.parse(localStorage.getItem('cartQuantity')) ?? [];
     const resData =  JSON.parse(localStorage.getItem("cartRes")) ?? [];
+    const navigate = useNavigate();
 
 
     // Handle item removal
@@ -169,7 +170,7 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className="bg-orange text-white py-2 px-5 w-full my-4" >Checkout</button>
+                                    <button className="bg-orange text-white py-2 px-5 w-full my-4" onClick={() => handleCheckout(navigate, dispatch)} >Checkout</button>
                                 </div>
                             </div>
                         ) 

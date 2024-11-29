@@ -96,3 +96,20 @@ export function totalPrice(cartQunt, setCartTotal, dispatch){
     setCartTotal(sum);  
     dispatch(cartItemsTotalSuccess(sum)) 
 }
+
+//checkout
+export function handleCheckout(navigate,dispatch){
+    dispatch(cartClearSuccess());
+    localStorage.setItem("cart",JSON.stringify([]))
+    localStorage.setItem("cartQuantity",JSON.stringify([]))
+    dispatch(cartLengthSuccess(0))
+    toast.success("Your order is placed", {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        theme: "light",
+      });
+    
+    navigate('/');   
+}
