@@ -1,14 +1,12 @@
 import axios from 'axios'
 import { useEffect,useState } from 'react'
+import { useSelector } from 'react-redux';
 import { toast } from "react-toastify";
 
-const useRestaurantMenu = (props) => {
-    const lat = props.get("lat");
-    const lon = props.get("lng");
-    const restaurantId = props.get("restaurantId");
+const useRestaurantMenu = (restaurantId) => {
+    const {lat, lon} = useSelector((state) => state.location)
     const [restaurantsMenu, setRestaurantsMenu] = useState([]);
     
-
     useEffect(()=>{
         getMenu();
     },[])

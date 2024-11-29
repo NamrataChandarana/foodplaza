@@ -8,17 +8,17 @@ import { FaStar } from "react-icons/fa";
 import { IoIosBicycle } from "react-icons/io";
 import ResDetailsSkeleton from "../components/skeleton/ResDetailsSkeleton";
 import MenuItemsSkeleton from "../components/skeleton/MenuItemsSkeleton";
+import { CiLocationOn } from "react-icons/ci";
+import { IoIosTimer } from "react-icons/io";
 
 
 const RestautrantMenu = () => {
     const [searchParams] = useSearchParams();
-    const lat = searchParams.get("lat");
-    const lon = searchParams.get("lon");
     const restaurantId = searchParams.get("restaurantId");
-    const restaurantMenu = useRestaurantMenu(searchParams);
+    const restaurantMenu = useRestaurantMenu(restaurantId);
     const [isMenuOpenInd, setIsMenuOpenInd] = useState(null);
     const [categories, setCategories] = useState(null);
-    const menuList = restaurantMenu[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+    const menuList = restaurantMenu && restaurantMenu[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
     const menuItems = menuList && menuList?.map((item) => (
         item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" || item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" ? ( item) : null
     ))
@@ -39,7 +39,6 @@ const RestautrantMenu = () => {
 
     return (
         <>
-           
             <div className="lg:mx-72 md:mx-32 mx-10">
                  {/* res details */}
                 <div>
@@ -60,27 +59,27 @@ const RestautrantMenu = () => {
                             resData?.map((item) => (
                                 (item !== null) ? (
                                     <div className="bg-white py-5 border border-gray-300 rounded-xl px-5 md:mt-5 mt-3 mb-9 shadow-xl">
-                                        <div className="flex-col md:flex-row lg:flex-row  md:gap-1 font-bold text-md my-2">
+                                        <div className="flex md:flex-row lg:flex-row  md:gap-1 gap-2 font-bold text-md my-2">
                                             <h1 className="flex"><FaStar className="bg-green-700 text-white rounded-xl py-1 mt-1 mr-1 text-lg" /> {item?.card?.card?.info?.avgRating} </h1>
                                             <h1>({item?.card?.card?.info?.totalRatingsString})</h1>
                                             <div className="text-lightGray text-xs mx-2 my-1 hidden">&#9679;</div>
                                             <h1>{item?.card?.card?.info?.costForTwoMessage}</h1>
                                         </div>
                                         <h3 className="font-bold text-sm text-orange">
-                                            {item?.card?.card?.info?.cuisines[0]},{item?.card?.card?.info?.cuisines[1]}
+                                             {item?.card?.card?.info?.cuisines[0]},{item?.card?.card?.info?.cuisines[1]}
                                         </h3>
                                         <div className="font-bold text-sm my-2 flex ">
                                             <div className="text-lightBlue flex-col mr-3 space-y-1">
-                                                <span className="">&#9679;</span> 
+                                                <span className=""><CiLocationOn className="mt-1 text-orange text-md" /></span> 
                                                 <hr height="20%"/>
-                                                <span className="">&#9679;</span>
+                                                <span className=""><IoIosTimer /></span>
                                             </div>
                                             <div className="">
                                                 <h1 className="mr-3 pb-2">Outlet  <span className="text-lightBlue font-semibold">{item?.card?.card?.info?.areaName}</span></h1>
                                                 <h1 className="">{item?.card?.card?.info?.sla?.slaString}</h1>
                                             </div>
                                         </div>
-                                        <p className="text-lightGray mt-5 text-sm"><IoIosBicycle className="inline pb-1 text-2xl " />{item?.card?.card?.info?.feeDetails?.message}</p>
+                                        <p className="text-lightGray mt-5 text-sm border-1 border-gray-200"><IoIosBicycle className="inline pb-1 text-2xl" /> Enjoy your meal</p>
                                 </div>
                                 ) : null
                             ))
@@ -119,7 +118,7 @@ const RestautrantMenu = () => {
                                 
                                     {(ind >= 2 && items && ind === isMenuOpenInd &&  isMenuOpenInd != null && items?.card?.card?.itemCards ) ? (
                                             items?.card?.card.itemCards?.map((items, index)=> (
-                                               items && <RestautrantaMenuCard items={items}/>
+                                               items && <RestautrantaMenuCard items={items} restaurantId={restaurantId}/>
                                             ))
                                     ) : (items?.card?.card?.categories?.map((category, index) => (
                                             <>
@@ -129,7 +128,7 @@ const RestautrantMenu = () => {
                                                 </div>
     
                                                 {(categories === category?.title) ? category?.itemCards?.map((items)=> (
-                                                   items && <RestautrantaMenuCard items={items}/>
+                                                   items && <RestautrantaMenuCard items={items} restaurantId={restaurantId}/>
                                                 )) : null}
                                             </>
                                         ))
@@ -141,10 +140,7 @@ const RestautrantMenu = () => {
                         ))
                     ) : (
                         <MenuItemsSkeleton />
-                    )
-                     
-                }
-                
+                    )}
             </div>
         </>
     )
