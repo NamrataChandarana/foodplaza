@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react'
 
 const OfflineNotifier = () => {
     const [isOffline, setIsOffline] = useState(!navigator.onLine)
-    console.log(navigator)
-    console.log(navigator.onLine)
 
     useEffect(() => {
       const handleOnline = () => setIsOffline(false);
@@ -17,10 +15,9 @@ const OfflineNotifier = () => {
         window.removeEventListener('offline', handleOffline);
       }
     }, [])
-    console.log(isOffline)
     
   return (
-    !isOffline && (
+    isOffline && (
         <div className="fixed top-0 left-0 w-full bg-red-700 text-white text-center py-2 z-50">
             You are offline. Please check your internet connection.
         </div>
