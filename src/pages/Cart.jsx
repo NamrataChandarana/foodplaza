@@ -14,7 +14,7 @@ const Cart = () => {
     const [cartData, setCartData] = useState(localData);
     const dispatch = useDispatch();
     const {cart, cartSum} = useSelector((state) => state.cart);
-
+    const [amountToPay, setAmountToPay] = useState(0);
     const [cartTotal , setCartTotal] = useState(0);
     const cartQunt = JSON.parse(localStorage.getItem('cartQuantity')) ?? [];
     const resData =  JSON.parse(localStorage.getItem("cartRes")) ?? [];
@@ -25,7 +25,17 @@ const Cart = () => {
         handleRemoveBtn(item, setCartData, setCartTotal, cartQunt, cartData, dispatch);
     };
 
+    function cartTotalAmount(cartTotal, resData) {
+        const itemsTotal = Number(cartTotal) || 0;
+        const gst = Number((cartTotal * 0.18).toFixed(2)) || 0; 
+        const deliveryFee = Number(resData?.feeDetails?.totalFee / 100 || 0);
+        const total = Number((itemsTotal + gst + deliveryFee).toFixed(2)) || 0;
+        setAmountToPay(Number(total))
+    }
 
+    useEffect(()=>{
+       cartTotalAmount(cartTotal, resData, dispatch);
+    },[cartTotal])
 
     useEffect(()=>{
         totalPrice(cartQunt, setCartTotal, dispatch);
@@ -48,6 +58,18 @@ const Cart = () => {
                         {/* CartCard */}
                         {cartData?.length > 0 ? (
                             <>
+                                <div className="bg-white mt-5 p-3">
+                                    {resData && (
+                                        <div>
+                                            <h1 className="font-semibold text-2xl text-darkhead">{resData?.name}</h1>
+                                            <div className="flex gap-3 mt-1">
+                                                <p className="text-sm flex gap-1"><IoMdTime className="mt-1" />{resData?.sla?.slaString}</p>
+                                                <h1 className="flex text-sm"><FaStar className="bg-green-700 text-white rounded-xl py-1 mt-1 mr-1 text-sm" />{resData?.avgRating}</h1>
+                                            </div> 
+                                        </div>
+                                    )} 
+                                </div>
+                                
                                 <div className="bg-white mt-5 p-3">
                                     {resData && (
                                         <div>
@@ -119,7 +141,6 @@ const Cart = () => {
                                     ))}
                                 </div>
                             </>
-                            
                         ) : null 
                         }
                     </div>
@@ -142,7 +163,7 @@ const Cart = () => {
                                             <h3 className="flex py-3"><MdOutlineCurrencyRupee className="mt-1 "/>{(resData?.feeDetails?.totalFee / 100) || 0}</h3>
                                             <h3 className="flex py-3"><MdOutlineCurrencyRupee className="mt-1 "/>{(cartSum * 0.18).toFixed(2)}</h3>
                                             <div>
-                                                <h1 className="flex py-3 border-t border-gray-300 font-bold"><MdOutlineCurrencyRupee className="mt-1 "/>300</h1>
+                                                <h1 className="flex py-3 border-t border-gray-300 font-bold"><MdOutlineCurrencyRupee className="mt-1 "/>{amountToPay}</h1>
                                             </div>
                                         </div>
                                     </div>
