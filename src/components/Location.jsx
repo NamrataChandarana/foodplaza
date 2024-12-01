@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { IoMdClose } from "react-icons/io";
 import { CiLocationOn } from "react-icons/ci";
 import useGetLocations from '../utils/useGetLocations';
 import { useDispatch } from 'react-redux';
 import { locationSuccess } from '../redux/reducers/SearchLocation';
+import { debounce } from '../utils/functions';
 
 const Location = ({setIsOpen}) => {
 
@@ -24,8 +25,13 @@ const Location = ({setIsOpen}) => {
   function handleKeyDown(e){
       if(e.target.value !== ''){
         setLocationInput(e.target.value);
+        console.log(locationInput)
       }
   }  
+
+  const debounceHandler = useCallback(
+    debounce(handleKeyDown,300)
+  )
 
   return (
   <>
@@ -34,7 +40,7 @@ const Location = ({setIsOpen}) => {
               <IoMdClose />
           </div>
           <div>
-              <input type="text" placeholder='Search for area..' className='shadow-md w-60 md:w-80 px-2 mx-10 my-2 md:my-5 py-4 outline-none border border-lightgray' onChange={handleKeyDown}/>
+              <input type="text" placeholder='Search for area..' className='shadow-md w-60 md:w-80 px-2 mx-10 my-2 md:my-5 py-4 outline-none border border-lightgray' onChange={debounceHandler}/>
           </div>
           {
             locations && locations.map((location)=> (

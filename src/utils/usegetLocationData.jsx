@@ -18,7 +18,7 @@ const usegetLoacationData = ({lat, lon}) =>{
             closeOnClick: true,
             theme: "light",
             // transition: Slide,
-            });
+          });
         }
       }    
       getData();  

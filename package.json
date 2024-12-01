@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "main": "App.js",
   "scripts": {
-    "start": "npx parcel index.html",
-    "test": ""
+    "start": "parcel index.html",
+    "dev": "parcel build index.html",
+    "build": "parcel build index.html"
   },
-  "author": "",
+  "author": "Namrata Chandarana",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.4",
-    "parcel": "^2.12.0",
+    "lucide": "^0.462.0",
+    "lucide-react": "^0.462.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
@@ -26,6 +28,10 @@
     "buffer": "^6.0.3",
     "postcss": "^8.4.39",
     "process": "^0.11.10",
-    "tailwindcss": "^3.4.6"
-  }
+    "tailwindcss": "^3.4.6",
+    "vite": "^6.0.1"
+  },
+  "browserslist": [
+    "last 10 Chrome versions"
+  ]
 }

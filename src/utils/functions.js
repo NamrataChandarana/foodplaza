@@ -113,3 +113,14 @@ export function handleCheckout(navigate,dispatch){
     
     navigate('/');   
 }
+
+//debounce
+export function debounce(func, delay) {
+    let timer;
+    return (...args) => {
+        timer = setTimeout(()=>{
+            console.log('timer')
+           func(...args);  
+        },delay)
+    }
+}
