@@ -11,7 +11,8 @@ import MenuItemsSkeleton from "../components/skeleton/MenuItemsSkeleton";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosTimer } from "react-icons/io";
 import React from "react";
-
+import CartBottomMenu from "../components/cartBottomMenu";
+import { useSelector } from "react-redux";
 
 const RestautrantMenu = () => {
     const [searchParams] = useSearchParams();
@@ -19,6 +20,7 @@ const RestautrantMenu = () => {
     const restaurantMenu = useRestaurantMenu(restaurantId);
     const [isMenuOpenInd, setIsMenuOpenInd] = useState(null);
     const [categories, setCategories] = useState(null);
+    const {cartLength} = useSelector((state) => state.cart);
     const menuList = restaurantMenu && restaurantMenu[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards;
     const menuItems = menuList && menuList?.map((item) => (
         item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" || item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" ? ( item) : null
@@ -142,7 +144,12 @@ const RestautrantMenu = () => {
                     ) : (
                         <MenuItemsSkeleton />
                     )}
+
+            {
+                cartLength > 0 ? (<CartBottomMenu />) : null
+            }
             </div>
+            
         </>
     )
 }

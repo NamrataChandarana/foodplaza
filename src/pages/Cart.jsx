@@ -18,7 +18,8 @@ const Cart = () => {
     const [amountToPay, setAmountToPay] = useState(0);
     const [cartTotal , setCartTotal] = useState(0);
     const cartQunt = JSON.parse(localStorage.getItem('cartQuantity')) ?? [];
-    const resData =  JSON.parse(localStorage.getItem("cartRes")) ?? [];
+    const data = localStorage.getItem("cartRes")
+    const resData = data !== "undefined" &&  JSON.parse(data);
     const navigate = useNavigate();
 
 
@@ -107,7 +108,19 @@ const Cart = () => {
                                                                </div>
                                                            ) : null
                                                        }
-                                                       <p className="w-[20rem] text-sm text-lightGray hidden lg:flex">{items.card?.info?.description}</p>
+                                                       <p className="w-[20rem] text-sm text-lightGray hidden lg:flex">
+                                                        {
+                                                            (() => {
+                                                                const itemDescription = items?.card?.info?.description?.split("") || [];
+                                                                
+                                                                // Modify the behavior as per your requirements:
+                                                                // Example: Show part of the description if it's too long
+                                                                return itemDescription.length > 6
+                                                                  ? itemDescription.slice(0, 70).join("") + "..."
+                                                                  : itemDescription.join("");
+                                                              })()
+                                                        }
+                                                        </p>
                                                    </div>
                                                    <div className="flex lg:flex-row flex-col lg:gap-12 md:gap-4 col-span-2">
                                                        <h1 className="flex text-sm mt-1  lg:mt-12"><MdOutlineCurrencyRupee className="mt-1 "/>
