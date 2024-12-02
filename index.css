@@ -6,3 +6,20 @@
 body{
     background-color: #F2F6FC;
 }
+
+::-webkit-scrollbar {
+    width: 10px; 
+    height: 12px; 
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #F2F6FC; 
+    border-radius: 6px; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 6px; 
+    /* border: 3px solid #f1f1f1; */
+  }
+  

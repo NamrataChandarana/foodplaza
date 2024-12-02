@@ -3,7 +3,7 @@ import usegetLoacationData from "../utils/usegetLocationData";
 import { useSelector } from "react-redux";
 import { MdClose } from "react-icons/md";
 import { cardFilters } from "../utils/constant";
-import { removeFilter, filterClicked } from "../utils/functions";
+import { removeFilter, filterClicked, throttling } from "../utils/functions";
 import RestautrantsCard from "../components/RestautrantsCard";
 import useRestaurantData from "../utils/useRestaurantData";
 import FilterSkeleton from "../components/skeleton/FilterSkeleton";
@@ -18,13 +18,29 @@ const Home = () =>{
     const [isClickedIndex, setIsClickedIndex] = useState(null);
     const [filteredData, setFilteredData] = useState(null);
     const [topRestaurant, setTopRestaurant] = useState(null);
-    const restaurantsData = useRestaurantData(setLocationService, setFilteredData);
-    // const topRes = useTopRestaurant(setTopRestaurant) 
-    const [swiperRef, setSwiperRef] = useState(null);
-
-    console.log(filteredData)
-
+    const [visibleCard, setVisibleCard] = useState(null);
+    const restaurantsData = useRestaurantData(setLocationService, setFilteredData, setVisibleCard);
     const TopRatedComp = TopRated(RestautrantsCard);
+    const [visibleCount, setVisibleCount] = useState(8);
+
+
+    useEffect(()=>{
+       
+        const handleScroll = throttling(() => {
+            if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200){
+                console.log("hello")
+                if(visibleCount < filteredData.length){
+                    const nextCount = visibleCount + 6;
+                    setVisibleCount(nextCount)
+                    setVisibleCard(filteredData?.slice(0,nextCount))
+                }
+            }
+        },200)
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    },[filteredData, visibleCount])
+    
+   
 
     return (    
         <>
@@ -40,7 +56,7 @@ const Home = () =>{
                                         cardFilters.map((filter, index) => (
                                             <div className={`flex border border-darkGray px-4 py-1 mb-3 rounded-3xl gap-1 cursor-pointer text-darkGray font-semibold ${isClickedIndex === index ? "bg-[#F0F0F5]" : ""}`} 
                                                 onClick={() => {
-                                                    index === isClickedIndex ? removeFilter(setFilteredData, restaurantsData) : filter.function(setFilteredData, restaurantsData);
+                                                    index === isClickedIndex ? removeFilter(setVisibleCard, restaurantsData) : filter.function(setVisibleCard, restaurantsData);
                                                     filterClicked(index, setIsClickedIndex, isClickedIndex);
                                                 }
                                             } >
@@ -53,9 +69,9 @@ const Home = () =>{
                                </div>
                             </div>
                             <div className=" grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-6 ">
-                                {filteredData ? (
-                                    filteredData.length > 0 ? (
-                                        filteredData.map((restaurant) => (  
+                                {visibleCard ? (
+                                    visibleCard.length > 0 ? (
+                                        visibleCard.map((restaurant) => (  
                                             (restaurant.info.avgRating >= 4.5) ? <TopRatedComp restaurant={restaurant} /> : <RestautrantsCard restaurant={restaurant} />
                                         ))   
                                     ): (

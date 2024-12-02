@@ -8,7 +8,6 @@ const RestautrantsCard = ({restaurant}) => {
   const {lat, lon} = useSelector((state) => state.location);
 
   return (
-
     <Link to={`/productmenu?page-type="REGULAR_MENU&complete-menu=true&lat=${lat}&lng=${lon}&restaurantId=${restaurant?.info?.id}&catalog_qa="undefined"&submitAction="ENTER"`}>
         <div className=" my-3  rounded-md hover:scale-90 hover:transition-all">
           <div className="relative">

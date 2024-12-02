@@ -138,3 +138,15 @@ export function debounce(func, delay) {
         },delay)
     }
 }
+
+export function throttling(func, delay) {
+    let last=0;
+    return (...args) => {
+        console.log('throttling')
+        const now = new Date().getTime();
+        if(now - last < delay) return;
+        last = now;
+        console.log("done")
+        func(...args);
+    }
+}

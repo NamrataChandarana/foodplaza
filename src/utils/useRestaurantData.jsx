@@ -2,7 +2,7 @@ import usegetLoacationData from "./usegetLocationData";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
-const useRestaurantData = (setLocationService, setFilteredData) => {
+const useRestaurantData = (setLocationService, setFilteredData, setVisibleCard) => {
     const {lat, lon} = useSelector(state => state.location);
     const resData = usegetLoacationData({lat, lon});
     const [restaurantsData, setRestaurantsData] = useState(null);
@@ -24,6 +24,7 @@ const useRestaurantData = (setLocationService, setFilteredData) => {
             console.log(resultData)
             setRestaurantsData(resultData?.card?.card?.gridElements?.infoWithStyle?.restaurants);
             setFilteredData(resultData?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setVisibleCard(resultData?.card?.card?.gridElements?.infoWithStyle?.restaurants?.slice(0,8))
         }   
         
     }
