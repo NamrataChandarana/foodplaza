@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Home, Cart, RestautrantMenu, About} from "./src/pages";
-import {Header, Footer }from "./src/components/index";
+import {Header, Footer, ScrollToTop }from "./src/components/index";
 import OfflineNotifier from "./src/components/offlineNotifier";
 import Search from "./src/pages/Search";
 import { ToastContainer } from "react-toastify";
@@ -30,6 +30,7 @@ function App(){
             } />
           </Routes>
           <Footer/>
+          <ScrollToTop/>
           <ToastContainer />
         </Router>
 
