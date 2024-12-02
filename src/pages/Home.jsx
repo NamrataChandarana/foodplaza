@@ -7,7 +7,7 @@ import { removeFilter, filterClicked } from "../utils/functions";
 import RestautrantsCard from "../components/RestautrantsCard";
 import useRestaurantData from "../utils/useRestaurantData";
 import FilterSkeleton from "../components/skeleton/FilterSkeleton";
-import image from '../../public/location_unserviceable.avif';
+import image from '/location_unserviceable.avif';
 import TopRated from "../components/TopRated";
 import HomeSkeleton from "../components/skeleton/HomeSkeleton";
 import HeroSection from "../components/HeroSection";
@@ -22,6 +22,8 @@ const Home = () =>{
     // const topRes = useTopRestaurant(setTopRestaurant) 
     const [swiperRef, setSwiperRef] = useState(null);
 
+    console.log(filteredData)
+
     const TopRatedComp = TopRated(RestautrantsCard);
 
     return (    
@@ -31,7 +33,7 @@ const Home = () =>{
                 locationService ? (
                     <div className="md:mx-40 mx-20">
                         <div>
-                            <h1 className="font-bold text-sm md:text-lg  my-5">Restaurants with online food delivery in {location}</h1>
+                            <h1 className="font-bold text-sm md:text-xl  my-5">Restaurants with online food delivery in {location}</h1>
                             <div>
                                 <div className="flex gap-2">
                                     {cardFilters.length > 0 ? (

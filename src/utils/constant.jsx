@@ -1,4 +1,4 @@
-import { fastDelivery, ratingFilter, pricefilter, priceLessThan300 } from "./functions";
+import { fastDelivery, ratingFilter, pricefilter, priceLessThan300, pureVeg } from "./functions";
 
 export const cardFilters = [
     {   name:"Fast Delivery",
@@ -12,6 +12,9 @@ export const cardFilters = [
     },
     {   name:"Less than Rs. 300",
         function: priceLessThan300
+    },
+    {   name:"Pure Veg",
+        function: pureVeg
     }
 ];
 

@@ -44,6 +44,20 @@ export const removeFilter = (setFilteredData, restaurantsData) =>{
     }
 }
 
+export const pureVeg = (setFilteredData, restaurantsData) => {
+    if(restaurantsData) {
+        console.log("veg")
+        const value = restaurantsData.filter((restaurant) => {
+            const badgeObjects = restaurant?.info?.badgesV2?.entityBadges?.imageBased?.badgeObject;
+            // Ensure badgeObject is an array and check if any badge has "pureveg" description
+            return Array.isArray(badgeObjects) && badgeObjects.some(
+              (badge) => badge?.attributes?.description === "pureveg"
+            );
+          });
+          setFilteredData(value);
+    }
+}
+
 //Remove item
 export function handleRemoveBtn(item, setCartData, setCartTotal, cartQunt, localData, dispatch){
     const updatedData = localData.filter((items) => items?.card?.info?.id !== item?.card?.info?.id);
