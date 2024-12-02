@@ -21,6 +21,7 @@ const useRestaurantData = (setLocationService, setFilteredData) => {
         }else{
             setLocationService(true);
             const resultData = resData?.cards?.find((item) => item?.card?.card?.gridElements?.infoWithStyle['@type'] === "type.googleapis.com/swiggy.presentation.food.v2.FavouriteRestaurantInfoWithStyle");
+            console.log(resultData)
             setRestaurantsData(resultData?.card?.card?.gridElements?.infoWithStyle?.restaurants);
             setFilteredData(resultData?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         }   

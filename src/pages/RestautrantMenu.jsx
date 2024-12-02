@@ -10,6 +10,7 @@ import ResDetailsSkeleton from "../components/skeleton/ResDetailsSkeleton";
 import MenuItemsSkeleton from "../components/skeleton/MenuItemsSkeleton";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosTimer } from "react-icons/io";
+import React from "react";
 
 
 const RestautrantMenu = () => {

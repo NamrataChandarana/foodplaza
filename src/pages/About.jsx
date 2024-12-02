@@ -1,7 +1,8 @@
-import burgerImg from "../../public/burger.png";
+import burgerImg from "/burger.png";
 import { FaLinkedin, FaGithubSquare } from "react-icons/fa";
 import { IoBagCheckOutline, IoTimerOutline } from "react-icons/io5";
 import { TbTruckDelivery } from "react-icons/tb";
+import React from "react";
 
 const About = () => {
     return (

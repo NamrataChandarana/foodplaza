@@ -30,9 +30,8 @@ const ResCardCount = ({items, className}) => {
     localStorage.setItem('cartQuantity', JSON.stringify(updatedData))
     dispatch(cartItemsCountSuccess(updatedData))
   }
-  return (
 
-    // <div className="relative flex z-0">
+  return (
       <div className={`${className} border border-lightBlue rounded-md py-2 px-4`}>
         <button className=' z-20 text-green-600 font-bold ' onClick={decrementBtn}>-</button>
           {
@@ -46,9 +45,6 @@ const ResCardCount = ({items, className}) => {
           }
         <button onClick={incrementBtn} className=' z-20 text-green-600 font-bold '>+</button>
       </div>
-        
-    // </div>    
-
   )
 }
 

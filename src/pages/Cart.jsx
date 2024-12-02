@@ -3,11 +3,12 @@ import { FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import ResCardCount from "../components/ResCardCount";
 import { MdDelete } from "react-icons/md";
-import emptyCart from "../../public/Empty_cart.avif";
+import emptyCart from "/Empty_cart.avif";
 import { Link, useNavigate} from "react-router-dom";
 import { handleRemoveBtn, handleClearBtn, totalPrice, handleCheckout } from "../utils/functions";
 import { IoMdTime } from "react-icons/io";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
+import React from "react";
 
 const Cart = () => {
     const localData = JSON.parse(localStorage.getItem("cart"));
@@ -59,18 +60,6 @@ const Cart = () => {
                         {/* CartCard */}
                         {cartData?.length > 0 ? (
                             <>
-                                <div className="bg-white mt-5 p-3">
-                                    {resData && (
-                                        <div>
-                                            <h1 className="font-semibold text-2xl text-darkhead">{resData?.name}</h1>
-                                            <div className="flex gap-3 mt-1">
-                                                <p className="text-sm flex gap-1"><IoMdTime className="mt-1" />{resData?.sla?.slaString}</p>
-                                                <h1 className="flex text-sm"><FaStar className="bg-green-700 text-white rounded-xl py-1 mt-1 mr-1 text-sm" />{resData?.avgRating}</h1>
-                                            </div> 
-                                        </div>
-                                    )} 
-                                </div>
-                                
                                 <div className="bg-white mt-5 p-3">
                                     {resData && (
                                         <div>

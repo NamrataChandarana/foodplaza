@@ -19,8 +19,11 @@ module.exports = {
         darkGray: '#161A1F',
         darkGray: '#3D4046',
         darkhead: "#414448",
-        cartBgColor: "#E9ECEE"
-      }
+        cartBgColor: "#E9ECEE",
+      },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(#1b1e2400 0%, #1b1e24d9 94.21%)',
+      },
     },
   },
   plugins: [],
