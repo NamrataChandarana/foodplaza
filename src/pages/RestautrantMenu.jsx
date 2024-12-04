@@ -42,7 +42,7 @@ const RestautrantMenu = () => {
 
     return (
         <>
-            <div className="lg:mx-72 md:mx-32 mx-10">
+            <div className="lg:mx-64 xs:mx-24 mx-4 ">               
                  {/* res details */}
                 <div>
                     {resName && resName?.length > 0  ? (
@@ -57,14 +57,18 @@ const RestautrantMenu = () => {
                     )
                     }
                 </div>
+
                 <div>
                     { resData && resData?.length > 0 ? (
                             resData?.map((item) => (
                                 (item !== null) ? (
                                     <div className="bg-white py-5 border border-gray-300 rounded-xl px-5 md:mt-5 mt-3 mb-9 shadow-xl">
-                                        <div className="flex md:flex-row lg:flex-row  md:gap-1 gap-2 font-bold text-md my-2">
-                                            <h1 className="flex"><FaStar className="bg-green-700 text-white rounded-xl py-1 mt-1 mr-1 text-lg" /> {item?.card?.card?.info?.avgRating} </h1>
-                                            <h1>({item?.card?.card?.info?.totalRatingsString})</h1>
+                                        <div className="flex flex-col md:flex-row md:gap-1 gap-2 font-bold text-md my-2">
+                                            <div className="flex gap-1">
+                                                <h1 className="flex"><FaStar className="bg-green-700 text-white rounded-xl py-1 mt-1 mr-1 text-lg" /> {item?.card?.card?.info?.avgRating} </h1>
+                                                <h1>({item?.card?.card?.info?.totalRatingsString})</h1>
+                                            </div>
+                                           
                                             <div className="text-lightGray text-xs mx-2 my-1 hidden">&#9679;</div>
                                             <h1>{item?.card?.card?.info?.costForTwoMessage}</h1>
                                         </div>
@@ -93,14 +97,14 @@ const RestautrantMenu = () => {
                     } 
                 </div>
 
-                {/* res Menu */}
+                {/* Menu title */}
                 <div className="text-orange text-lg flex justify-center gap-2">
                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" className= "mt-1 inline ml-4 text-xl text-orange-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linejoin="round" stroke-width="32" d="m57.49 47.74 368.43 368.43a37.28 37.28 0 0 1 0 52.72 37.29 37.29 0 0 1-52.72 0l-90-91.55a32 32 0 0 1-9.2-22.43v-5.53a32 32 0 0 0-9.52-22.78l-11.62-10.73a32 32 0 0 0-29.8-7.44 48.53 48.53 0 0 1-46.56-12.63l-85.43-85.44C40.39 159.68 21.74 83.15 57.49 47.74z"></path><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m400 32-77.25 77.25A64 64 0 0 0 304 154.51v14.86a16 16 0 0 1-4.69 11.32L288 192m32 32 11.31-11.31a16 16 0 0 1 11.32-4.69h14.86a64 64 0 0 0 45.26-18.75L480 112m-40-40-80 80M200 368l-99.72 100.28a40 40 0 0 1-56.56 0h0a40 40 0 0 1 0-56.56L128 328"></path></svg>
                     <h1 className="font-bold text-darkGray font-mono tracking-widest">MENU</h1>
                     <svg stroke="currentColor" fill="currentColor" stroke-width="0"  viewBox="0 0 512 512" className= "mt-1 inline text-xl text-orange-500" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linejoin="round" stroke-width="32" d="m57.49 47.74 368.43 368.43a37.28 37.28 0 0 1 0 52.72 37.29 37.29 0 0 1-52.72 0l-90-91.55a32 32 0 0 1-9.2-22.43v-5.53a32 32 0 0 0-9.52-22.78l-11.62-10.73a32 32 0 0 0-29.8-7.44 48.53 48.53 0 0 1-46.56-12.63l-85.43-85.44C40.39 159.68 21.74 83.15 57.49 47.74z"></path><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m400 32-77.25 77.25A64 64 0 0 0 304 154.51v14.86a16 16 0 0 1-4.69 11.32L288 192m32 32 11.31-11.31a16 16 0 0 1 11.32-4.69h14.86a64 64 0 0 0 45.26-18.75L480 112m-40-40-80 80M200 368l-99.72 100.28a40 40 0 0 1-56.56 0h0a40 40 0 0 1 0-56.56L128 328"></path></svg>
                 </div>
-                {
-                    menuItems && menuItems?.length > 0 ? (
+
+                {menuItems && menuItems?.length > 0 ? (
                         menuItems.map((items, ind) => (
                             items !== null ? (
                                 <div>
@@ -135,21 +139,24 @@ const RestautrantMenu = () => {
                                                 )) : null}
                                             </>
                                         ))
-                                    )
-                                    }
-                                    <div className="h-3 bg-gray-200"></div>
+                                    )}
+                                    {/* <div className="h-3 bg-gray-200"></div> */}
+                                  
                                 </div> 
                             ) : null 
                         ))
                     ) : (
                         <MenuItemsSkeleton />
-                    )}
+                    )
+                }
 
-            {
-                cartLength > 0 ? (<CartBottomMenu />) : null
-            }
+                
+                
             </div>
-            
+
+            <div >
+            {cartLength > 0 ? (<CartBottomMenu />) : null}   
+            </div>
         </>
     )
 }

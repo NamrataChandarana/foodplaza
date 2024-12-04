@@ -85,7 +85,7 @@ const Cart = () => {
                                     {cartData?.map((items, index) => (
                                        <div>
                                            <div className="flex gap-5 mt-5 pb-5">
-                                               <div className="relative mr-5  w-[100px] h-[100px] md:w-[156px] md:h-[144px] overflow-hidden z-10 rounded-md ml-5 ">
+                                               <div className="relative mr-5  w-[100px] h-[150px] md:w-[156px] md:h-[144px] overflow-hidden z-10 rounded-md ml-5 ">
                                                    <img className="z-10 absolute top-0 left-0  object-cover" loading="lazy" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${items?.card?.info?.imageId}`} alt="" />
                                                </div> 
                                                <div className="grid grid-cols-1 lg:grid-cols-4   flex-wrap gap-2 lg:gap-5 col-span-3 ">
@@ -131,7 +131,7 @@ const Cart = () => {
                                                            })}
                                                        </h1>
                                                        
-                                                       <ResCardCount items={items} className={"my-1 lg:my-9 h-10 w-[5.5rem]"} />
+                                                       <ResCardCount items={items} className={"my-1 lg:my-9 h-10 w-[5.5rem] md:w-[6.5rem] px-4"} />
                                                        
                                                        <div className="relative mt-1 lg:mt-9 z-10">
                                                            <button className="bg-white text-green-600 pr-5 py-2 font-bold text-2xl " onClick={() => handleRemove(items, setCartTotal, setCartData, cartQunt, localData, dispatch, cartData)}><MdDelete /></button>

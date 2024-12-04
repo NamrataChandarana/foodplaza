@@ -21,9 +21,9 @@ const Search = () => {
 
   return (
     <div className='mt-10'>
-        <div className='mx-80'>
+        <div className='mx-5 sm:mx-10 md:mx-20 lg:mx-80 '>
             <input type="text" value={searchInput} autoFocus onChange={(e) => debounceHandler(e.target.value)} className='py-3 px-2 w-full outline-none rounded-sm border border-1 border-gray-300' placeholder='Search for restaurant... ' />
-            <div className='bg-white h-80'>
+            <div className='h-80'>
                     {searchData.length > 0 ? (
                         searchData.map((res, index) => {
                             if(res.type === "RESTAURANT") {
@@ -42,9 +42,13 @@ const Search = () => {
                             }
                         })
                     ): (
-                        <div className='mx-auto flex justify-center items-center min-h-[50vh]'>
-                          <h1 className='text-3xl font-Montserrat text-orange'>No results found. Try searching for restaurants.</h1>
-                        </div> 
+                        <div>
+                            <h1 className='flex place-content-center mt-5'>No Restautrant</h1>
+                            <div className='mx-auto flex justify-center items-center my-5'>
+                                <img src="/noRes.jpg" alt="" className='h-60' />
+                            </div> 
+                        </div>
+                        
                     )}
                 
             </div>

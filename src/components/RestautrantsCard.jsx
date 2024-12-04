@@ -9,7 +9,7 @@ const RestautrantsCard = ({restaurant}) => {
 
   return (
     <Link to={`/productmenu?page-type="REGULAR_MENU&complete-menu=true&lat=${lat}&lng=${lon}&restaurantId=${restaurant?.info?.id}&catalog_qa="undefined"&submitAction="ENTER"`}>
-        <div className=" my-3  rounded-md hover:scale-90 hover:transition-all">
+        <div className="rounded-md hover:scale-90 hover:transition-all h-[280px] w-[250px] mx-auto sm:h-full sm:w-full">
           <div className="relative">
             <img src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant?.info?.cloudinaryImageId}`} className="relative h-[10em] w-full rounded-2xl object-cover" />
             <div className="absolute bottom-0 z-10  bg-custom-gradient h-16 w-full rounded-xl">

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import  React,{useEffect, useState} from "react";
 import usegetLoacationData from "../utils/usegetLocationData";
 import { useSelector } from "react-redux";
 import { MdClose } from "react-icons/md";
@@ -40,27 +40,25 @@ const Home = () =>{
         return () => window.removeEventListener('scroll', handleScroll);
     },[filteredData, visibleCount])
     
-   
-
     return (    
         <>
             <HeroSection/>
             {
                 locationService ? (
-                    <div className="md:mx-40 mx-20">
+                    <div className="mx-5 xs:mx-10 sm:mx-20 lg:mx-36">
                         <div>
-                            <h1 className="font-bold text-sm md:text-xl  my-5">Restaurants with online food delivery in {location}</h1>
+                            <h1 className="font-bold text-xl md:text-xl  my-5">Restaurants with online food delivery in {location}</h1>
                             <div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 overflow-y-scroll scroll-smooth custom-scroll ">
                                     {cardFilters.length > 0 ? (
                                         cardFilters.map((filter, index) => (
-                                            <div className={`flex border border-darkGray px-4 py-1 mb-3 rounded-3xl gap-1 cursor-pointer text-darkGray font-semibold ${isClickedIndex === index ? "bg-[#F0F0F5]" : ""}`} 
+                                            <div className={`flex border text-sm h-8 w-auto border-darkGray px-4 py-1 mb-3 rounded-3xl gap-1 cursor-pointer text-darkGray font-semibold ${isClickedIndex === index ? "bg-[#F0F0F5]" : ""}`} 
                                                 onClick={() => {
                                                     index === isClickedIndex ? removeFilter(setVisibleCard, restaurantsData) : filter.function(setVisibleCard, restaurantsData);
                                                     filterClicked(index, setIsClickedIndex, isClickedIndex);
                                                 }
                                             } >
-                                                <h6>{filter?.name}</h6>
+                                                <h6 className="text-nowrap">{filter?.name}</h6>
                                                 <button className={`${isClickedIndex === index ? "" : "hidden"}`}><MdClose /></button>
                                             </div>
                                         ))
@@ -68,7 +66,7 @@ const Home = () =>{
                                     }
                                </div>
                             </div>
-                            <div className=" grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 gap-6 ">
+                            <div className="grid lg:grid-cols-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-3 ">
                                 {visibleCard ? (
                                     visibleCard.length > 0 ? (
                                         visibleCard.map((restaurant) => (  

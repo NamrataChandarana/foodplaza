@@ -25,6 +25,13 @@ module.exports = {
         'custom-gradient': 'linear-gradient(#1b1e2400 0%, #1b1e24d9 94.21%)',
       },
     },
+    screens: {
+      xs: '475px',
+      sm: '640px',  // Default small breakpoint
+      md: '768px',  // Default medium breakpoint
+      lg: '1024px', // Default large breakpoint
+      xl: '1280px'
+    }
   },
   plugins: [],
 }

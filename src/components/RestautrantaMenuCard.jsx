@@ -59,7 +59,7 @@ const RestautrantaMenuCard = ({items, restaurantId}) => {
         autoClose: 1000,
         hideProgressBar: true,
         closeOnClick: true,
-        theme: "light",
+        theme: "dark",
         // transition: Slide,
       });
   }
@@ -112,7 +112,7 @@ const RestautrantaMenuCard = ({items, restaurantId}) => {
                 <img className=" absolute top-0 left-0 w-full h-full object-cover" loading="lazy" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${items?.card?.info?.imageId}`} alt="" />
             </div>
             <div className="">
-                {(isAddBtn) ? (<ResCardCount items={items} className={"absolute right-[1.5rem] top-[8rem] bg-white flex px-6"} />) : (<button className="bg-white absolute right-[.5rem] top-[4rem]  md:right-[1.5rem] md:top-[8rem] text-green-600 px-5 py-1 md:px-9 md:py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items, restaurantId, dispatch)}>ADD</button>)}
+                {(isAddBtn) ? (<ResCardCount items={items} className={"absolute right-[1rem] top-[4rem] md:right-[1.5rem] md:top-[8rem]"} />) : (<button className="bg-white absolute right-[.5rem] top-[4rem]  md:right-[1.5rem] md:top-[8rem] text-green-600 px-5 py-1 md:px-9 md:py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items, restaurantId, dispatch)}>ADD</button>)}
             </div>
         </div>
         
