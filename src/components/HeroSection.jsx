@@ -12,7 +12,7 @@ const HeroSection = () => {
   }
   return (
     <div className='bg-[#FF5200] w-full flex justify-between h-[34em]  text-center py-5'> 
-        <img src={img} alt="img" className='h-auto w-60 object-fill ' />
+        <img src={img} alt="img" className='h-auto w-60 object-fill hidden md:inline ' />
         <div className='flex flex-col justify-start pt-14 items-center space-y-6'>
             <h1 className='text-white font-bold font-Montserrat text-wrap text-[2.7rem] text-center'>Order food & Discover best restaurants. Delight every bite!!</h1>
             <div className='relative '>
