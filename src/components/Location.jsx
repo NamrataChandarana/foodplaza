@@ -16,7 +16,7 @@ const Location = ({setIsOpen}) => {
     const lat = location.lat;
     const locationName = location.name;
     dispatch(locationSuccess({locationName, lon, lat}));
-    // setIsOpen(false)
+    setIsOpen(false);
   }
   const handleClose = () =>{
     setIsOpen(false);
@@ -25,7 +25,6 @@ const Location = ({setIsOpen}) => {
   function handleKeyDown(e){
       if(e.target.value !== ''){
         setLocationInput(e.target.value);
-        console.log(locationInput)
       }
   }  
 

@@ -3,45 +3,48 @@ import { GitHub_link, LinkedIn_link, Twitter_link } from "../utils/constant";
 
 const Footer = () => {
 	return (
-		<div className="px-48 mt-5 pt-10 pb-5 bg-[#0a0a0a] text-[#808080] font-semi">
+		<div className="px-5 lg:px-48 mt-5 pt-10 pb-5 bg-[#0a0a0a] text-[#808080] mx-auto">
 			<div className="flex justify-between">
-				<div className="">
-					<h3 className="font-bold text-white text-lg">Food Home</h3>
-					<p>© 2024 Jack</p>
-					<p>Pvt. Ltd</p>
+				<div className="flex flex-col">
+					<div className="">
+						<h3 className="font-bold text-white text-lg">Food Home</h3>
+						<p>© 2024 Jack</p>
+						<p>Pvt. Ltd</p>
+					</div>
+					<div>
+						<h3 className="font-bold text-white text-lg">Social Links</h3>
+						<div>
+							<i></i>
+							<p>
+								<a href={LinkedIn_link}
+									target="_blank">
+									LinkedIn
+								</a>
+							</p>
+						</div>
+						<div>
+							<i></i>
+							<p>
+								<a href={GitHub_link}
+									target="_blank">
+									GitHub
+								</a>
+							</p>
+						</div>
+						<div>
+							<i></i>
+							<p>
+								<a
+									href={Twitter_link}
+									target="_blank"
+								>
+									Twitter
+								</a>
+							</p>
+						</div>
+					</div>
 				</div>
-				<div>
-					<h3 className="font-bold text-white text-lg">Social Links</h3>
-					<div>
-						<i></i>
-						<p>
-							<a href={LinkedIn_link}
-								target="_blank">
-								LinkedIn
-							</a>
-						</p>
-					</div>
-					<div>
-						<i></i>
-						<p>
-							<a href={GitHub_link}
-								target="_blank">
-								GitHub
-							</a>
-						</p>
-					</div>
-					<div>
-						<i></i>
-						<p>
-							<a
-								href={Twitter_link}
-								target="_blank"
-							>
-								Twitter
-							</a>
-						</p>
-					</div>
-				</div>
+				
 				<div className="pb-8">
 					<h3 className="font-bold text-lg text-white ">Company</h3>
 					<p>Privacy Policy</p>

@@ -29,7 +29,7 @@ function App(){
               <Search />
             } />
           </Routes>
-          {/* <Footer/> */}
+          <Footer/>
           <ScrollToTop/>
           <ToastContainer />
         </Router>

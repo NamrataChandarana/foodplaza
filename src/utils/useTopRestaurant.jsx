@@ -18,7 +18,6 @@ const useTopRestaurant = (setTopRestaurant) => {
         const topRes = resData?.cards?.map(item => 
             (item?.card?.card['@type'] === "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget") ? setTopRestaurant(item?.card?.card) : null
         );
-        console.log(topRes)
         // setTopRestaurant(topRes);
     }
 

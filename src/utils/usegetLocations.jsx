@@ -22,7 +22,6 @@ const useGetLocations = (locationInput) => {
       }
       getLocations();
     },[locationInput])
-    // console.log(locations);
     return locations;
 }
 export default useGetLocations;

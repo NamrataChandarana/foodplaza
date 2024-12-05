@@ -46,7 +46,6 @@ export const removeFilter = (setFilteredData, restaurantsData) =>{
 
 export const pureVeg = (setFilteredData, restaurantsData) => {
     if(restaurantsData) {
-        console.log("veg")
         const value = restaurantsData.filter((restaurant) => {
             const badgeObjects = restaurant?.info?.badgesV2?.entityBadges?.imageBased?.badgeObject;
             // Ensure badgeObject is an array and check if any badge has "pureveg" description
@@ -133,7 +132,6 @@ export function debounce(func, delay) {
     let timer;
     return (...args) => {
         timer = setTimeout(()=>{
-            console.log('timer')
            func(...args);  
         },delay)
     }
@@ -142,11 +140,9 @@ export function debounce(func, delay) {
 export function throttling(func, delay) {
     let last=0;
     return (...args) => {
-        console.log('throttling')
         const now = new Date().getTime();
         if(now - last < delay) return;
         last = now;
-        console.log("done")
         func(...args);
     }
 }

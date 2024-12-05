@@ -15,7 +15,6 @@ const useSearchRes = ({lat,lon,searchInput}) => {
           const {data}= await axios.get(`https://cors-handlers.vercel.app/api/?url=https%3A%2F%2Fwww.swiggy.com%2Fdapi%2Frestaurants%2Fsearch%2Fsuggest%3Flat%3D${lat}%26lng%3D${lon}%26str%3D${encodeURIComponent(searchInput)}%26trackingId%3Dundefined%26includeIMItem%3Dtrue`);
           setSearchData(data.data.suggestions); 
         }catch(error){
-          console.log(error)
           toast.error(error, {
             position: "top-center",
             autoClose: 1000,
