@@ -33,7 +33,7 @@ const RestautrantaMenuCard = ({items, restaurantId}) => {
     }); 
     dispatch(cartItemsCountSuccess(updatedCount));
 
-    if (cart && cart?.length > 0) {
+    if (cart && cart?.length >= 0) {
         localStorage.setItem("cartQuantity", JSON.stringify(updatedCount));
     }
 
@@ -65,10 +65,10 @@ const RestautrantaMenuCard = ({items, restaurantId}) => {
   }
 
   function handleAddBtn(item, restaurantId, dispatch){
-    if(cartRes === null){
+    if(cartRes && cartRes === null){
         getItem(item, restaurantId)
     }else{
-        if(cartRes === restaurantId){
+        if(cartRes && cartRes === restaurantId){
             getItem(item, restaurantId);
             
         }else{

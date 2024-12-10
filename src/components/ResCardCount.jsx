@@ -32,7 +32,7 @@ const ResCardCount = ({items, className}) => {
   }
 
   return (
-      <div className={`${className}  bg-white text-green-600 px-2 py-1 md:px-6 md:py-2 font-bold rounded-md border border-black`}>
+      <div className={`${className} bg-white text-green-600 px-2 py-1 md:px-6 md:py-2 font-bold rounded-md border border-black`}>
         <button className=' z-20 text-green-600 font-bold ' onClick={decrementBtn}>-</button>
           {
             cartQun?.length > 0 && cartQun?.map((item) => (
