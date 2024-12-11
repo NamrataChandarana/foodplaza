@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const useGetLocations = (locationInput) => {
+const usegetLocations = (locationInput) => {
     const [locations, setLocations] = useState([]);
     useEffect(()=> {
       async function getLocations() {
@@ -24,4 +24,4 @@ const useGetLocations = (locationInput) => {
     },[locationInput])
     return locations;
 }
-export default useGetLocations;
+export default usegetLocations;

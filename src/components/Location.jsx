@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { IoMdClose } from "react-icons/io";
 import { CiLocationOn } from "react-icons/ci";
-import useGetLocations from '../utils/useGetLocations';
+import useGetLocations from '../utils/usegetLocations';
 import { useDispatch } from 'react-redux';
 import { debounce, getLocation } from '../utils/functions';
 
@@ -10,6 +10,7 @@ const Location = ({setIsOpen}) => {
   const [locationInput, setLocationInput] = useState("Surat");
   const locations = useGetLocations(locationInput);
   const dispatch = useDispatch();
+
 
   function handleKeyDown(e){
       if(e.target.value !== ''){

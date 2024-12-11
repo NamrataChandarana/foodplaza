@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Home, Cart, RestautrantMenu, About} from "./src/pages";
 import {Header, Footer, ScrollToTop }from "./src/components/index";
-import OfflineNotifier from "./src/components/offlineNotifier";
+import OfflineNotifier from "./src/components/OfflineNotifier";
 import Search from "./src/pages/Search";
 import { ToastContainer } from "react-toastify";
 
