@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const RestautrantaMenuCard = ({items, restaurantId}) => {
   const dispatch = useDispatch();
-  const {cart, cartItemsCount, cartRes} = useSelector((state) => state.cart)
   const [isAddBtn, setIsAddBtn] = useState(false);
   let cartQuan = JSON.parse(localStorage.getItem("cartQuantity"))
   const restautrantData =  useRestaurantMenu(restaurantId)
@@ -40,49 +39,16 @@ const RestautrantaMenuCard = ({items, restaurantId}) => {
     cartQuan?.length > 0 && cartQuan?.map((item) => {
         (item?.id === items?.card?.info?.id) ? setIsAddBtn(true) : null 
     });
-  },[cart])
+  },[])
 
   useEffect(() => {
     const resData = resInfo?.card?.card?.info;
-    dispatch(cartRestautrantSuccess(resData))
-    localStorage.setItem("cartRes" , JSON.stringify(resData)); 
+    if(resData){
+        dispatch(cartRestautrantSuccess(resData))
+        localStorage.setItem("cartRes" , JSON.stringify(resData)); 
+    }
   },[restautrantData])
 
-  function getItem(item, restaurantId ) {
-    dispatch(cartResSuccess(restaurantId))
-    dispatch(cartSuccess(item));
-    setIsAddBtn(true);
-    const length = cartQuan ? cartQuan.length + 1 : 1;
-    dispatch(cartLengthSuccess(length))
-    toast.success("1 item added to cart!", {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        theme: "dark",
-        // transition: Slide,
-      });
-  }
-
-  function handleAddBtn(item, restaurantId, dispatch){
-    if(cartRes && cartRes === null){
-        getItem(item, restaurantId)
-    }else{
-        if(cartRes && cartRes === restaurantId){
-            getItem(item, restaurantId);
-            
-        }else{
-            dispatch(cartClearSuccess());
-            localStorage.setItem('cart', JSON.stringify([]));
-            dispatch(cartLengthSuccess(0))
-            cartQuan = localStorage.setItem('cartQuantity', JSON.stringify([]))
-            localStorage.setItem('cartRes', JSON.stringify([]))
-            dispatch(cartItemsTotalSuccess(0))
-            getItem(item, restaurantId)
-        }
-  }
-  
-  }
 
   return (
     <div className="flex gap-2 px-3 py-9 justify-between border-t border-[.2] border-gray-300">
@@ -112,7 +78,7 @@ const RestautrantaMenuCard = ({items, restaurantId}) => {
                 <img className=" absolute top-0 left-0 w-full h-full object-cover" loading="lazy" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${items?.card?.info?.imageId}`} alt="" />
             </div>
             <div className="">
-                {(isAddBtn) ? (<ResCardCount items={items} className={"absolute right-[1rem] top-[4rem] md:right-[1.5rem] md:top-[8rem]"} />) : (<button className="bg-white absolute right-[.5rem] top-[4rem]  md:right-[1.5rem] md:top-[8rem] text-green-600 px-5 py-1 md:px-9 md:py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items, restaurantId, dispatch)}>ADD</button>)}
+                {(isAddBtn) ? (<ResCardCount items={items} className={"absolute right-[1rem] top-[4rem] md:right-[1.5rem] md:top-[8rem]"} />) : (<button className="bg-white absolute right-[.5rem] top-[4rem]  md:right-[1.5rem] md:top-[8rem] text-green-600 px-5 py-1 md:px-9 md:py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items, restaurantId, dispatch,setIsAddBtn )}>ADD</button>)}
             </div>
         </div>
         

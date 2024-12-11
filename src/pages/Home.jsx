@@ -21,25 +21,8 @@ const Home = () =>{
     const [visibleCard, setVisibleCard] = useState(null);
     const restaurantsData = useRestaurantData(setLocationService, setFilteredData, setVisibleCard);
     const TopRatedComp = TopRated(RestautrantsCard);
-    const [visibleCount, setVisibleCount] = useState(8);
+    useHandleScroll(filteredData,setVisibleCard);
 
-
-    useEffect(()=>{
-       
-        const handleScroll = throttling(() => {
-            if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 200){
-                console.log("hello")
-                if(visibleCount < filteredData.length){
-                    const nextCount = visibleCount + 6;
-                    setVisibleCount(nextCount)
-                    setVisibleCard(filteredData?.slice(0,nextCount))
-                }
-            }
-        },200)
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    },[filteredData, visibleCount])
-    
     return (    
         <>
             <HeroSection/>

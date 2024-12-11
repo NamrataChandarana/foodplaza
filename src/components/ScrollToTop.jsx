@@ -1,13 +1,9 @@
 import React from 'react'
+import { scrollToTop } from '../utils/functions'
 
 const ScrollToTop = () => {
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        })
-    }
+   
 
   return (
     <button

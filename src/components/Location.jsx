@@ -3,24 +3,13 @@ import { IoMdClose } from "react-icons/io";
 import { CiLocationOn } from "react-icons/ci";
 import useGetLocations from '../utils/useGetLocations';
 import { useDispatch } from 'react-redux';
-import { locationSuccess } from '../redux/reducers/SearchLocation';
-import { debounce } from '../utils/functions';
+import { debounce, getLocation } from '../utils/functions';
 
 const Location = ({setIsOpen}) => {
 
   const [locationInput, setLocationInput] = useState("Surat");
   const locations = useGetLocations(locationInput);
   const dispatch = useDispatch();
-  const getLocation = (location) => {
-    const lon = location.lon;
-    const lat = location.lat;
-    const locationName = location.name;
-    dispatch(locationSuccess({locationName, lon, lat}));
-    setIsOpen(false);
-  }
-  const handleClose = () =>{
-    setIsOpen(false);
-  }
 
   function handleKeyDown(e){
       if(e.target.value !== ''){
@@ -35,7 +24,7 @@ const Location = ({setIsOpen}) => {
   return (
   <>
       <div className='h-[100vh] w-[20rem] md:w-[30rem] bg-white shadow-2xl fixed left-0 top-0 z-10'>
-          <div className='px-10 md:py-5 py-3 text-lightBlue text-lg md:text-2xl'onClick={handleClose}>
+          <div className='px-10 md:py-5 py-3 text-lightBlue text-lg md:text-2xl'onClick={() => setIsOpen(false)}>
               <IoMdClose />
           </div>
           <div>
@@ -50,7 +39,7 @@ const Location = ({setIsOpen}) => {
                   </div>
                  
                       <div>
-                        <h4 className='font-semibold text-md hover:text-orange cursor-pointer' onClick={() => getLocation(location)} >{location?.name !== "Null" ? location?.name: ""}</h4>
+                        <h4 className='font-semibold text-md hover:text-orange cursor-pointer' onClick={() => getLocation(location, dispatch, setIsOpen)} >{location?.name !== "Null" ? location?.name: ""}</h4>
                         <p className='text-xs text-lightBlue'>{location?.display_name}</p>
                       </div>
                 </div>

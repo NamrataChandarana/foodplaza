@@ -5,44 +5,30 @@ import ResCardCount from "../components/ResCardCount";
 import { MdDelete } from "react-icons/md";
 import emptyCart from "/Empty_cart.avif";
 import { Link, useNavigate} from "react-router-dom";
-import { handleRemoveBtn, handleClearBtn, totalPrice, handleCheckout } from "../utils/functions";
+import { handleRemoveBtn, handleClearBtn, totalPrice, handleCheckout, cartTotalAmount } from "../utils/functions";
 import { IoMdTime } from "react-icons/io";
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import React from "react";
+import useCartTotalAmount from "../utils/useCartTotalAmount";
+import useTotalPrice from "../utils/useTotalPrice";
 
 const Cart = () => {
     const localData = JSON.parse(localStorage.getItem("cart"));
     const [cartData, setCartData] = useState(localData);
     const dispatch = useDispatch();
     const {cart, cartSum} = useSelector((state) => state.cart);
-    const [amountToPay, setAmountToPay] = useState(0);
-    const [cartTotal , setCartTotal] = useState(0);
     const cartQunt = JSON.parse(localStorage.getItem('cartQuantity')) ?? [];
     const data = localStorage.getItem("cartRes")
     const resData = data !== "undefined" &&  JSON.parse(data);
     const navigate = useNavigate();
-
+    const [cartTotal , setCartTotal] = useState(0);
+    useTotalPrice(cart, cartQunt, cartTotal, setCartTotal);
+    const amountToPay = useCartTotalAmount(cartTotal,resData);
 
     // Handle item removal
     const handleRemove = (item) => {
         handleRemoveBtn(item, setCartData, setCartTotal, cartQunt, cartData, dispatch);
     };
-
-    function cartTotalAmount(cartTotal, resData) {
-        const itemsTotal = Number(cartTotal) || 0;
-        const gst = Number((cartTotal * 0.18).toFixed(2)) || 0; 
-        const deliveryFee = Number(resData?.feeDetails?.totalFee / 100 || 0);
-        const total = Number((itemsTotal + gst + deliveryFee).toFixed(2)) || 0;
-        setAmountToPay(Number(total))
-    }
-
-    useEffect(()=>{
-       cartTotalAmount(cartTotal, resData, dispatch);
-    },[cartTotal])
-
-    useEffect(()=>{
-        totalPrice(cartQunt, setCartTotal, dispatch);
-    },[cart, cartQunt])
 
     return (
             cartData?.length > 0 ? (

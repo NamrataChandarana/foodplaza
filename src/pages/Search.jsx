@@ -10,11 +10,10 @@ const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const searchData = useSearchRes({lat,lon,searchInput});
   
+  //debounce
   const handleInput = (value) => { 
         setSearchInput(value)
-        console.log(value)
   }
-  
   const debounceHandler  = useCallback(
     debounce(handleInput,100), []
   )

@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { CiSearch } from "react-icons/ci";
 
 const HeroSection = () => {
-
   const navigate = useNavigate();
+
   function handleClick(){
     navigate('/search')
   }

@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
+import { Link, useLocation} from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState, useEffect, useRef } from "react";
 import { Location }from './index'
@@ -29,9 +29,6 @@ const Header = () => {
         setIsHome(pathname === '/')
     },[pathname])
     
-    const handleLocation = () => {
-        setIsOpen(!isOpen);
-    }
     const handleMenuClick = () => {
         if (!menuRef.current?.classList.contains('hidden')) {
             menuRef.current?.classList.add('hidden');
@@ -44,14 +41,14 @@ const Header = () => {
         dispatch(cartLengthSuccess(cartData?.length));
     },[])
     
-    function handleMenu(){
+    const handleMenu = () => {
         setIsMenuClicked(true)
         if (menuRef.current?.classList.contains('hidden')) {
             menuRef.current?.classList.remove('hidden');
         }
     }
 
-    function handleClose(){
+    const handleClose = () =>{
         setIsMenuClicked(false)
         if(!menuRef.current?.classList.contains('hidden')){
             menuRef.current?.classList.add('hidden');
@@ -66,7 +63,7 @@ const Header = () => {
                         <img src={logo} alt="logo" className="h-16" />
                     </Link>
                     <div className="content-center">
-                        <div className="location py-2 flex gap-2 cursor-pointer text-sm md:text-md md:mt-1 align-baseline" onClick={handleLocation} >
+                        <div className="location py-2 flex gap-2 cursor-pointer text-sm md:text-md md:mt-1 align-baseline" onClick={()=> setIsOpen(!isOpen)} >
                             <h3 className={`font-bold  underline underline-offset-1  hidden md:flex ${isHome ? "text-lg text-white" : "tex-md tex-darkGray"}`}>Other</h3>
                             <h4 className={`${isHome ? "text-lg text-white" : "text-md"}`}>{location}</h4>
                             <div className="py-1" >
