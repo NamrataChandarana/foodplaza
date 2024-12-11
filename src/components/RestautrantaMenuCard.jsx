@@ -1,45 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { MdOutlineCurrencyRupee } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
-import { cartClearSuccess, cartItemsTotalSuccess, cartLengthSuccess, cartRemoveSuccess,cartItemsCountSuccess, cartResSuccess, cartRestautrantSuccess, cartSuccess } from '../redux/reducers/cartData';
+import { useDispatch } from 'react-redux';
 import ResCardCount from './ResCardCount';
-import { handleClearBtn } from '../utils/functions';
+import { handleAddBtn } from '../utils/functions';
 import useRestaurantMenu from '../utils/useRestaurantMenu';
-import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { cartRestautrantSuccess } from '../redux/reducers/cartData';
 
 const RestautrantaMenuCard = ({items, restaurantId}) => {
   const dispatch = useDispatch();
   const [isAddBtn, setIsAddBtn] = useState(false);
-  let cartQuan = JSON.parse(localStorage.getItem("cartQuantity"))
+  let cartQuan = JSON.parse(localStorage.getItem("cartQuantity"));
+  const cartRes = JSON.parse(localStorage.getItem("cartRes"));
   const restautrantData =  useRestaurantMenu(restaurantId)
   const resInfo = restautrantData && restautrantData?.find((item) => (
       item?.card?.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.Restaurant" ? (item) : null
   ))
 
   useEffect(()=>{
-    if (cart && cart?.length > 0) 
-        localStorage.setItem("cart", JSON.stringify(cart));
-    
-    const updatedCount = cart?.map((item) => {
-        const matchingCartItem = cartQuan && cartQuan?.find((cartItem) => cartItem?.id === item?.card?.info?.id);
-        return {
-            id: item?.card?.info?.id,
-            price: (item?.card?.info?.finalPrice) ?  (item?.card?.info?.finalPrice / 100) : (item?.card?.info?.price / 100) || (item?.card?.info?.defaultPrice / 100),
-            quantity: matchingCartItem?.quantity || 1
-        }
-    }); 
-    dispatch(cartItemsCountSuccess(updatedCount));
-
-    if (cart && cart?.length >= 0) {
-        localStorage.setItem("cartQuantity", JSON.stringify(updatedCount));
-    }
-
     cartQuan?.length > 0 && cartQuan?.map((item) => {
-        (item?.id === items?.card?.info?.id) ? setIsAddBtn(true) : null 
-    });
-  },[])
+       (item?.id === items?.card?.info?.id) ? setIsAddBtn(true) : null 
+   });
+},[])
 
   useEffect(() => {
     const resData = resInfo?.card?.card?.info;
@@ -78,7 +61,7 @@ const RestautrantaMenuCard = ({items, restaurantId}) => {
                 <img className=" absolute top-0 left-0 w-full h-full object-cover" loading="lazy" src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${items?.card?.info?.imageId}`} alt="" />
             </div>
             <div className="">
-                {(isAddBtn) ? (<ResCardCount items={items} className={"absolute right-[1rem] top-[4rem] md:right-[1.5rem] md:top-[8rem]"} />) : (<button className="bg-white absolute right-[.5rem] top-[4rem]  md:right-[1.5rem] md:top-[8rem] text-green-600 px-5 py-1 md:px-9 md:py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items, restaurantId, dispatch,setIsAddBtn )}>ADD</button>)}
+                {(isAddBtn) ? (<ResCardCount items={items} className={"absolute right-[1rem] top-[4rem] md:right-[1.5rem] md:top-[8rem]"} />) : (<button className="bg-white absolute right-[.5rem] top-[4rem]  md:right-[1.5rem] md:top-[8rem] text-green-600 px-5 py-1 md:px-9 md:py-2 font-bold rounded-md border border-black" onClick={() => handleAddBtn(items, restaurantId, dispatch,setIsAddBtn,cartRes )}>ADD</button>)}
             </div>
         </div>
         

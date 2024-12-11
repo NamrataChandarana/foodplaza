@@ -11,6 +11,7 @@ import image from '/location_unserviceable.avif';
 import TopRated from "../components/TopRated";
 import HomeSkeleton from "../components/skeleton/HomeSkeleton";
 import HeroSection from "../components/HeroSection";
+import useHandleScroll from "../utils/useHandleScroll";
 
 const Home = () =>{
     const {location} = useSelector(state => state.location);

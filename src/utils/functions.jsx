@@ -220,15 +220,12 @@ const getItem = (item, restaurantId,dispatch,cartQuan,setIsAddBtn) => {
       // transition: Slide,
     });
 }
-export const handleAddBtn = (item, restaurantId, dispatch,setIsAddBtn) =>{
-  const cartRes = JSON.parse(localStorage.getItem("cartRes"));
+export const handleAddBtn = (item, restaurantId, dispatch,setIsAddBtn, cartRes) =>{
   let cartQuan = JSON.parse(localStorage.getItem("cartQuantity"));
   if(cartRes){
       if( cartRes.id === restaurantId){
-          console.log("resId")
             getItem(item, restaurantId,dispatch,cartQuan,setIsAddBtn);
         }else{
-            console.log("remove")
             dispatch(cartClearSuccess());
             localStorage.setItem('cart', JSON.stringify([]));
             dispatch(cartLengthSuccess(0))
