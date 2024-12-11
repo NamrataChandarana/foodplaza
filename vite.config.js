@@ -17,9 +17,12 @@ export default defineConfig({
       '@': '/src', // Example alias for cleaner imports
     },
   },
+  build: {
+    outDir: 'dist',
+  },
   esbuild: {
-    minify: true, // Enable minification during builds
-    // target: 'esnext', // Specify modern JavaScript targets
-    loader: 'jsx', // Use appropriate loader for TypeScript or JSX
+    minify: true, 
+    // target: 'esnext', 
+    loader: 'jsx', 
   },
 });

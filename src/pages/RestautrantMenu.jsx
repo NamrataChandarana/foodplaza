@@ -11,7 +11,7 @@ import MenuItemsSkeleton from "../components/skeleton/MenuItemsSkeleton";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosTimer } from "react-icons/io";
 import React from "react";
-import CartBottomMenu from "../components/cartBottomMenu";
+import CartBottomMenu from "../components/CartBottomMenu";
 import { useSelector } from "react-redux";
 
 const RestautrantMenu = () => {
