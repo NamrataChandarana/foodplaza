@@ -13,7 +13,7 @@ import useCartTotalAmount from "../utils/useCartTotalAmount";
 import useTotalPrice from "../utils/useTotalPrice";
 
 const Cart = () => {
-    const localData = JSON.parse(localStorage.getItem("cart"));
+    const localData = JSON.parse(localStorage.getItem("cart")) ?? [];
     const [cartData, setCartData] = useState(localData);
     const dispatch = useDispatch();
     const {cart, cartSum} = useSelector((state) => state.cart);
