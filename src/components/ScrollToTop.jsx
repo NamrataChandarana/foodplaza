@@ -2,9 +2,7 @@ import React from 'react'
 import { scrollToTop } from '../utils/functions'
 
 const ScrollToTop = () => {
-
-   
-
+  
   return (
     <button
       onClick={scrollToTop}
